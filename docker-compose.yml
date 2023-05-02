@@ -1,0 +1,111 @@
+version: "3"
+
+services:
+  # Serviço que irá rodar o node
+  frontend:
+    # Faz o build do Dockerfile da pasta atual e utiliza o resultado desse build
+    # como a imagem do container
+    build: ./front-end
+    # Define um user específico, diferente de root para a execução dos comandos
+    # user: eval
+    # Nome do container para facilitar execução
+    container_name: app_delivery_front
+    # Mesmo que `docker run -t`
+    tty: true
+    # Mesmo que `docker run -i`
+    stdin_open: true
+    # Substitui o comando padrão da imagem do node
+    command: bash
+    # Restarta a imagem caso algo a faça parar
+    restart: always
+    # Diretório padrão de execução
+    working_dir: /front-end
+    # Lista de volumes (diretórios) mapeados de fora para dentro do container
+    # Lista de serviços do qual este serviço depende
+    depends_on:
+      # Precisa do banco funcionando antes de subir o node
+      - db
+    # Lista de portas mapeadas de dentro para fora do container
+    # na notação porta_de_fora:porta_de_dentro
+    ports:
+      # Expõe a porta padrão da aplicação: altere aqui caso use outra porta
+      - 3000:3000
+    # Configura as variáveis de ambiente dentro do container
+    # environment:
+    #   JWT_SECRET: secretJWT
+    #   API_HOST: 'node'
+    #   API_PORT: 3000
+    #   NODE_ENV: 'development'
+    networks:
+      - app_delivery_api
+  backend:
+    # Faz o build do Dockerfile da pasta atual e utiliza o resultado desse build
+    # como a imagem do container
+    build: ./back-end
+    # Define um user específico, diferente de root para a execução dos comandos
+    # user: eval
+    # Nome do container para facilitar execução
+    container_name: app_delivery_back
+    # Mesmo que `docker run -t`
+    tty: true
+    # Mesmo que `docker run -i`
+    stdin_open: true
+    platform: linux/x86_64
+    # Substitui o comando padrão da imagem do node
+    command: bash
+    # Restarta a imagem caso algo a faça parar
+    restart: always
+    # Diretório padrão de execução
+    working_dir: /back-end
+    # Lista de volumes (diretórios) mapeados de fora para dentro do container
+    # Lista de serviços do qual este serviço depende
+    depends_on:
+      # Precisa do banco funcionando antes de subir o node
+      - db
+    # Lista de portas mapeadas de dentro para fora do container
+    # na notação porta_de_fora:porta_de_dentro
+    ports:
+      # Expõe a porta padrão da aplicação: altere aqui caso use outra porta
+      - 3001:3000
+    # Configura as variáveis de ambiente dentro do container
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: senhaDoDB
+      MYSQL_HOST: localhost # Nome do service logo abaixo
+      MYSQL_PORT: 3306
+      API_PORT: 3001
+      NODE_ENV: 'development'
+      MYSQL_DB_NAME: delivery-app
+      EVAL_ALWAYS_RESTORE_DEV_DB: true
+    networks:
+      - app_delivery_api
+
+  # Serviço que irá rodar o banco de dados
+  db:
+    container_name: delivery-app-db
+    image: mysql:8.0.23
+    # Indica de forma fixa a plataforma na qual o banco irá rodar
+    platform: linux/x86_64
+    restart: always
+    ports:
+      # Garanta que não haverá conflitos de porta com um banco que esteja
+      # rodando localmente
+      - 3306:3306
+      - 33060:33060
+    environment:
+      MYSQL_ROOT_PASSWORD: senhaDoDB
+    networks:
+      - app_delivery_api
+
+# Lista de redes que os containeres irão utilizar
+networks:
+  # Cria rede com nome `blogs_api_net`
+  app_delivery_api:
+    # Define o `driver` como `bridge`, que é o driver padrão do docker
+    driver: bridge
+
+# As chaves `tty`, `stdin_open` e `command` fazem com que o container fique
+# rodando em segundo plano, bem como tornam possível o uso do comando
+# `docker attach`, já deixando o terminal atual acoplado ao container, direto
+# no bash. Apesar disso, utilizar o attach mais de uma vez irá replicar o
+# terminal, portanto é melhor utilizar o comando `docker exec`.
