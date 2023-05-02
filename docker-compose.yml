@@ -76,13 +76,13 @@ services:
       API_PORT: 3001
       NODE_ENV: 'development'
       MYSQL_DB_NAME: delivery-app
-      EVAL_ALWAYS_RESTORE_DEV_DB: true
+      EVAL_ALWAYS_RESTORE_DEV_DB: "true"
     networks:
       - app_delivery_api
 
   # Serviço que irá rodar o banco de dados
   db:
-    container_name: delivery-app-db
+    container_name: delivery-app
     image: mysql:8.0.23
     # Indica de forma fixa a plataforma na qual o banco irá rodar
     platform: linux/x86_64
