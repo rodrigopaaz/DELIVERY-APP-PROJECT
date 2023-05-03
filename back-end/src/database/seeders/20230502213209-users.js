@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   async up(queryInterface, _Sequelize) {
     await queryInterface.bulkInsert('users', [
@@ -23,7 +21,7 @@ module.exports = {
         password: '1c37466c159755ce1fa181bd247cb925',
         role: 'customer',
         // -- senha: md5('$#zebirita#$')
-      }
+      },
     ], {
         timestamps: false,
     });
@@ -31,5 +29,5 @@ module.exports = {
 
   async down(queryInterface, _Sequelize) {
       await queryInterface.bulkDelete('users', null, {});
-  }
+  },
 };

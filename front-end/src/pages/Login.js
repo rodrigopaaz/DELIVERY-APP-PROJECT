@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import '../styles/login.css'
+import '../styles/login.css';
+import Axios from 'axios';
 
 export default function Login() {
   const history = useHistory();
   const [login, setLogin] = useState({ email: '', password: '' });
+  const [invalidUser, setInvalidUser] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
 
   const validateInputs = () => {
@@ -17,14 +19,21 @@ export default function Login() {
     } else { setIsDisabled(true); }
   };
 
-  const handleSubmit = () => {
-    localStorage.setItem('user', JSON.stringify({ email: login.email }));
-    history.push('/produtcs');
+  const validateData = async () => {
+    try {
+      const { data } = await Axios.post('http://localhost:3001/login', {
+        email: login.email,
+        password: login.password,
+      });
+      return JSON.parse(data);
+    } catch (error) {
+      return setInvalidUser(true);
+    }
   };
 
-  useEffect(()=> {
-    validateInputs()
-  },[login])
+  useEffect(() => {
+    validateInputs();
+  }, [login]);
 
   return (
     <div className="main__login">
@@ -58,18 +67,20 @@ export default function Login() {
               } }
             />
           </label>
+          {invalidUser
+          && <p>Usuário inválido</p> }
           <button
             type="button"
             data-testid="common_login__button-login"
             disabled={ isDisabled }
-            onClick={ handleSubmit }
+            onClick={ validateData }
           >
             Login
           </button>
           <button
             type="button"
             data-testid="common_login__button-register"
-            onClick={ ()=> history.push('/register') }
+            onClick={ () => history.push('/register') }
           >
             Register
           </button>
