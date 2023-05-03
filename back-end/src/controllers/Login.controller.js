@@ -2,6 +2,7 @@ const { loginService } = require('../services/Login.service');
 
      const loginController = async (req, res) => {
         const { email, password } = req.body;
+        // comparar a criptografia antes de fazer o login
         const result = await loginService(email, password);
         if (result.message) {
           return res.status(404).json({ message: 'Not Found' });
