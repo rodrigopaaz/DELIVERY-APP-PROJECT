@@ -1,111 +1,62 @@
-version: "3"
-
+version: '3.9'
 services:
-  # Serviço que irá rodar o node
   frontend:
-    # Faz o build do Dockerfile da pasta atual e utiliza o resultado desse build
-    # como a imagem do container
+    container_name: app_frontend
     build: ./front-end
-    # Define um user específico, diferente de root para a execução dos comandos
-    # user: eval
-    # Nome do container para facilitar execução
-    container_name: app_delivery_front
-    # Mesmo que `docker run -t`
-    tty: true
-    # Mesmo que `docker run -i`
-    stdin_open: true
-    # Substitui o comando padrão da imagem do node
-    command: bash
-    # Restarta a imagem caso algo a faça parar
-    restart: always
-    # Diretório padrão de execução
-    working_dir: /front-end
-    # Lista de volumes (diretórios) mapeados de fora para dentro do container
-    # Lista de serviços do qual este serviço depende
-    depends_on:
-      # Precisa do banco funcionando antes de subir o node
-      - db
-    # Lista de portas mapeadas de dentro para fora do container
-    # na notação porta_de_fora:porta_de_dentro
     ports:
-      # Expõe a porta padrão da aplicação: altere aqui caso use outra porta
       - 3000:3000
-    # Configura as variáveis de ambiente dentro do container
-    # environment:
-    #   JWT_SECRET: secretJWT
-    #   API_HOST: 'node'
-    #   API_PORT: 3000
-    #   NODE_ENV: 'development'
-    networks:
-      - app_delivery_api
-  backend:
-    # Faz o build do Dockerfile da pasta atual e utiliza o resultado desse build
-    # como a imagem do container
-    build: ./back-end
-    # Define um user específico, diferente de root para a execução dos comandos
-    # user: eval
-    # Nome do container para facilitar execução
-    container_name: app_delivery_back
-    # Mesmo que `docker run -t`
-    tty: true
-    # Mesmo que `docker run -i`
-    stdin_open: true
     platform: linux/x86_64
-    # Substitui o comando padrão da imagem do node
-    command: bash
-    # Restarta a imagem caso algo a faça parar
-    restart: always
-    # Diretório padrão de execução
-    working_dir: /back-end
-    # Lista de volumes (diretórios) mapeados de fora para dentro do container
-    # Lista de serviços do qual este serviço depende
+    working_dir: /app-frontend
     depends_on:
-      # Precisa do banco funcionando antes de subir o node
-      - db
-    # Lista de portas mapeadas de dentro para fora do container
-    # na notação porta_de_fora:porta_de_dentro
+      backend:
+        condition: service_healthy
+    # Os `healthcheck` devem garantir que a aplicação
+    # está operacional, antes de liberar o container
+    healthcheck:
+      test: ["CMD", "lsof", "-t", "-i:3000"]  # Caso utilize outra porta interna para o front, altere ela aqui também
+      timeout: 10s
+      retries: 5
+  backend:
+    container_name: app_backend
+    build: ./back-end
     ports:
-      # Expõe a porta padrão da aplicação: altere aqui caso use outra porta
-      - 3001:3000
-    # Configura as variáveis de ambiente dentro do container
-    environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: senhaDoDB
-      MYSQL_HOST: localhost # Nome do service logo abaixo
-      MYSQL_PORT: 3306
-      API_PORT: 3001
-      NODE_ENV: 'development'
-      MYSQL_DB_NAME: delivery-app
-      EVAL_ALWAYS_RESTORE_DEV_DB: true
-    networks:
-      - app_delivery_api
-
-  # Serviço que irá rodar o banco de dados
-  db:
-    container_name: delivery-app-db
-    image: mysql:8.0.23
-    # Indica de forma fixa a plataforma na qual o banco irá rodar
+      - 3001:3001
     platform: linux/x86_64
-    restart: always
-    ports:
-      # Garanta que não haverá conflitos de porta com um banco que esteja
-      # rodando localmente
-      - 3306:3306
-      - 33060:33060
+    working_dir: /app-backend
+    # Caso queira que o container esteja atualizado durante o desenvolvimento, sem que você precise ficar fazendo down e up dos containers, descomente as 3 linhas abaixo
+    command: dev 
+    volumes: 
+      - ./back-end/src:/app-backend/src
+    depends_on:
+      db:
+        condition: service_healthy
     environment:
-      MYSQL_ROOT_PASSWORD: senhaDoDB
-    networks:
-      - app_delivery_api
-
-# Lista de redes que os containeres irão utilizar
-networks:
-  # Cria rede com nome `blogs_api_net`
-  app_delivery_api:
-    # Define o `driver` como `bridge`, que é o driver padrão do docker
-    driver: bridge
-
-# As chaves `tty`, `stdin_open` e `command` fazem com que o container fique
-# rodando em segundo plano, bem como tornam possível o uso do comando
-# `docker attach`, já deixando o terminal atual acoplado ao container, direto
-# no bash. Apesar disso, utilizar o attach mais de uma vez irá replicar o
-# terminal, portanto é melhor utilizar o comando `docker exec`.
+      - PORT=3001
+      # Os dados abaixo se referem ao container `db`
+      # Dica: Relembre aqui da comunicação interna entre containers
+      - MYSQL_DB_NAME=delivery-app
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=senhaDoDB
+      - MYSQL_HOST=localhost
+      - MYSQL_PORT=3306
+      - NODE_ENV=development
+      - EVAL_ALWAYS_RESTORE_DEV_DB=true
+    healthcheck:
+      test: ["CMD", "lsof", "-t", "-i:3001"] # Caso utilize outra porta interna para o back, altere ela aqui também
+      timeout: 10s
+      retries: 5
+  db:
+    image: mysql:8.0.21
+    container_name: db
+    platform: linux/x86_64
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=senhaDoDB
+    restart: 'always'
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"] # Deve aguardar o banco ficar operacional
+      timeout: 10s
+      retries: 5
+    cap_add:
+      - SYS_NICE # Deve omitir alertas menores
