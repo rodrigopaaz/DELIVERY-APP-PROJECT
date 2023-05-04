@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
 import AppContext from '../context/Context';
-import { requestLogin, setToken, requestData } from '../services/requests';
+import { requestLogin, setToken /* requestData */ } from '../services/requests';
 
 export default function RegisterForms() {
   const [isDisabled, setIsDisabled] = useState(true);
-  const [isLogged, setIsLogged] = useState(false);
+  const [/* isLogged */, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const {
     name,
@@ -54,15 +54,15 @@ export default function RegisterForms() {
 
   const handleSubmit = async () => {
     try {
-      const token  = await requestLogin('/register', { name, email, password });
+      const token = await requestLogin('/register', { name, email, password });
 
-      console.log("token register forms", token);
+      console.log('token register forms', token);
       setToken(token);
 
-      //const { role } = await requestData('/login/role', { email, password });
+      // const { role } = await requestData('/login/role', { email, password });
 
       localStorage.setItem('token', token);
-      //localStorage.setItem('role', role);
+      // localStorage.setItem('role', role);
 
       setIsLogged(true);
     } catch (error) {
@@ -73,14 +73,14 @@ export default function RegisterForms() {
 
   useEffect(() => {
     const check = validatePassword(password)
-    && validateEmail(email) && validateName(name)
+    && validateEmail(email) && validateName(name);
     if (check) {
       setIsDisabled(false);
     }
     setFailedTryLogin(false);
   }, [name, email, password]);
 
-  //if (isLogged) return <Navigate to="/products" />;
+  // if (isLogged) return <Navigate to="/products" />;
 
   return (
     <div>
