@@ -30,9 +30,9 @@ export default function Login() {
       /*       const { role } = await requestData('/login/role', {
         email: login.email,
         password: login.password,
-      }) */
+      }); */
       history.push('/products');
-      handleToken(token, role);
+      handleToken(token);
       return JSON.parse(token);
     } catch (error) {
       return setInvalidUser(true);

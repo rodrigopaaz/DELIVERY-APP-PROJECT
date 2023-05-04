@@ -7,6 +7,8 @@ services:
       - 3000:3000
     platform: linux/x86_64
     working_dir: /app-frontend
+    volumes: 
+      - ./front-end/src:/app-frontend/src
     depends_on:
       backend:
         condition: service_healthy
@@ -37,7 +39,7 @@ services:
       - MYSQL_DB_NAME=delivery-app
       - MYSQL_USER=root
       - MYSQL_PASSWORD=senhaDoDB
-      - MYSQL_HOST=localhost
+      - MYSQL_HOST=db
       - MYSQL_PORT=3306
       - NODE_ENV=development
       - EVAL_ALWAYS_RESTORE_DEV_DB=true

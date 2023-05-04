@@ -9,7 +9,7 @@ const { createToken } = require('../utils/JWT.token');
             return { message: 'invalid login' };
         }
         const token = createToken({ data });
-        return token;
+        return { token, role: data.role };
     };
 
 module.exports = {
