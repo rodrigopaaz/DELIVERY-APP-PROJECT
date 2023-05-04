@@ -16,17 +16,17 @@ export default function RegisterForms() {
     setPassword,
   } = useContext(AppContext);
 
-  validatePassword = (passwordToVerify) => {
+  const validatePassword = (passwordToVerify) => {
     const NUMBER_SIX = 6;
     return passwordToVerify.length >= NUMBER_SIX;
   };
 
-  validateEmail = (emailToVerify) => {
+  const validateEmail = (emailToVerify) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(emailToVerify);
   };
 
-  validateName = (nameToVerify) => {
+  const validateName = (nameToVerify) => {
     const NUMBER_TWELVE = 12;
     return nameToVerify.length >= NUMBER_TWELVE;
   };
@@ -54,14 +54,15 @@ export default function RegisterForms() {
 
   const handleSubmit = async () => {
     try {
-      const { token } = await requestLogin('/register', { email, password });
+      const token  = await requestLogin('/register', { name, email, password });
 
+      console.log("token register forms", token);
       setToken(token);
 
-      const { role } = await requestData('/login/role', { email, password });
+      //const { role } = await requestData('/login/role', { email, password });
 
       localStorage.setItem('token', token);
-      localStorage.setItem('role', role);
+      //localStorage.setItem('role', role);
 
       setIsLogged(true);
     } catch (error) {
@@ -71,12 +72,15 @@ export default function RegisterForms() {
   };
 
   useEffect(() => {
-    setIsDisabled(validatePassword(password)
-    && validateEmail(email) && validateName(name));
+    const check = validatePassword(password)
+    && validateEmail(email) && validateName(name)
+    if (check) {
+      setIsDisabled(false);
+    }
     setFailedTryLogin(false);
   }, [name, email, password]);
 
-  if (isLogged) return <Navigate to="/products" />;
+  //if (isLogged) return <Navigate to="/products" />;
 
   return (
     <div>

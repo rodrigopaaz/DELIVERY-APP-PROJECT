@@ -25,6 +25,7 @@ export default function Login() {
         email: login.email,
         password: login.password,
       });
+      console.log(data);
       return JSON.parse(data);
     } catch (error) {
       return setInvalidUser(true);
