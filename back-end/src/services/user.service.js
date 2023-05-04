@@ -15,7 +15,7 @@ const createUserService = async (info) => {
       },
     );
     const token = createToken({ data });
-    return token;
+    return { token, role: data.role };
   } catch (error) {
     throw new Error(error);
   }

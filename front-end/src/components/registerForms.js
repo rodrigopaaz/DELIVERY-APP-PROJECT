@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
 import AppContext from '../context/Context';
-import { requestLogin, requestData } from '../services/requests';
+import { requestLogin } from '../services/requests';
 import handleToken from '../utils/localStorage';
 
 export default function RegisterForms() {
   const [isDisabled, setIsDisabled] = useState(true);
-  const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const {
     name,
@@ -16,6 +15,8 @@ export default function RegisterForms() {
     password,
     setPassword,
   } = useContext(AppContext);
+
+  const history = useHistory();
 
   const validatePassword = (passwordToVerify) => {
     const NUMBER_SIX = 6;
@@ -32,36 +33,15 @@ export default function RegisterForms() {
     return nameToVerify.length >= NUMBER_TWELVE;
   };
 
-  // const handleSubmit = async () => {
-  //   const status201 = 201;
-  //   try {
-  //     // faz a requisição HTTP para o endpoint que salva o usuário no banco de dados
-  //     const response = await axios.post('endpoint', {
-  //       name,
-  //       email,
-  //       password,
-  //     });
-
-  //     if (response.status === status201) {
-  //       // se a requisição for bem sucedida, navega para a nova rota
-  //       history.push('/register');
-  //     }
-  //   } catch (error) {
-  //     // caso ocorra algum erro na requisição, exibe uma mensagem de erro
-  //     console.error(error);
-  //     setIsValid(true);
-  //   }
-  // };
-
   const handleSubmit = async () => {
     try {
-      const token = await requestLogin('/register', { name, email, password });
-      const { role } = await requestData('/login/role', { email, password });
-      handleToken(token, role);
-      setIsLogged(true);
+      const { token, role } = await requestLogin('/register', { name, email, password });
+      handleToken({ token, role });
+      console.log('estou aqui');
+      history.push('/products');
     } catch (error) {
+      console.log('estou aqui no erro');
       setFailedTryLogin(true);
-      setIsLogged(false);
     }
   };
 
@@ -73,8 +53,6 @@ export default function RegisterForms() {
     }
     setFailedTryLogin(false);
   }, [name, email, password]);
-
-  if (isLogged) return <Redirect to="/products" />;
 
   return (
     <div>
