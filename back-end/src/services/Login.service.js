@@ -1,6 +1,6 @@
+const md5 = require('md5');
 const { users } = require('../database/models');
 const { createToken } = require('../utils/JWT.token');
-const md5 = require('md5')
 
     const loginService = async (email, passwordUncripted) => {
         const password = md5(passwordUncripted);

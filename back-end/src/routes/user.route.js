@@ -3,7 +3,7 @@ const {
     createUserController,
     findAllUserController,
     findByIdUserController,
-    deleteUserController
+    deleteUserController,
  } = require('../controllers');
 
 const userRouter = express.Router();

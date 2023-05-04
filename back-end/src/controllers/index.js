@@ -4,7 +4,7 @@ const {
     findAllUserController,
     findByIdUserController,
     updateUserController,
-    deleteUserController
+    deleteUserController,
 } = require('./user.controller');
 
 module.exports = {
@@ -13,5 +13,5 @@ module.exports = {
     findAllUserController,
     findByIdUserController,
     updateUserController,
-    deleteUserController
+    deleteUserController,
 };
