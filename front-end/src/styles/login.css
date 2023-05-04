@@ -1,118 +1,113 @@
-@media only screen and (max-width: 382px) and (min-width: 100px){
+@media only screen and ( max-width : 382px ) and ( min-width : 100px ) {
 
-    .main__login{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-image: url('../images/rockGlass.svg');
-        background-size: cover;
-        width: 100vw;
-        height: 100vh;
-    }
-    
-    .form__login {
-        background-color: rgba(255, 255, 255, 0.8);
-        height: 600px;
-        width: 100%;
-        padding: 50px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-evenly;
-    }
-    
-    .form__login form{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .form__login form input{
-    width: 226px;
+  .main__login {
+    align-items: center;
+    background-image: url('../images/rockGlass.svg');
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    width: 100vw;
+  }
+
+  .form__login {
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    justify-content: space-evenly;
+    padding: 50px;
+    width: 100%;
+  }
+
+  .form__login form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .form__login form input {
+    border: 0.5px solid#41197F;
+    border-radius: 5px;
     height: 35px;
     margin-bottom: 10px;
     padding: 10px;
-    
-    border: 0.5px solid #41197F;
-    border-radius: 5px;
-    }
+    width: 226px;
+  }
 
-    .form__login form input::placeholder{
+  .form__login form input::placeholder {
     font-size: 10px;
-    }
+  }
 
-    .form__login form button {
-        width: 226px;
-    height: 35px;
+  .form__login form button {
+    background: #ffc436;
+    border-radius: 5px;
     color: black;
     font-size: 12px;
-    background: #FCC436;
-    border-radius: 5px;
-    }
-    
-    .form__login img{
-        width: 150px;
-        height: 150px;
-    }
+    height: 35px;
+    width: 226px;
+  }
+
+  .form__login img {
+    height: 150px;
+    width: 150px;
+  }
 
 }
 
-@media only screen and (min-width: 383px){
+@media only screen and ( min-width : 383px ) {
 
-    .main__login{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-image: url('../images/rockGlass.svg');
-        background-size: contain;
-        width: 100vw;
-        height: 100vh;
-    }
-    
-    .form__login {
-        background-color: rgba(82, 90, 124, 0.8);
-        border-radius: 10px;
-        height: 400px;
-        width: 600px;
-        padding: 50px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-evenly;
-    }
-    
-    .form__login form{
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .form__login form input{
-    width: 276px;
+  .main__login {
+    align-items: center;
+    background-image: url('../images/rockGlass.svg');
+    background-size: contain;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    width: 100vw;
+  }
+
+  .form__login {
+    align-items: center;
+    background-color: rgba(82, 90, 124, 0.8);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    justify-content: space-evenly;
+    padding: 50px;
+    width: 600px;
+  }
+
+  .form__login form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form__login form input {
+    border: 0.5px solid #41197f;
+    border-radius: 5px;
     height: 40px;
     margin-bottom: 10px;
     padding: 10px;
-    
-    border: 0.5px solid #41197F;
+    width: 276px;
+  }
+
+  .form__login form button {
+    background: #fcc436;
     border-radius: 5px;
-    }
-    .form__login form button {
-        width: 276px;
-    height: 40px;
     color: black;
-    
-    background: #FCC436;
-    border-radius: 5px;
-    }
-    
-    .form__login img{
-        width: 150px;
-        height: 150px;
-    }
+    height: 40px;
+    width: 276px;
+  }
+
+  .form__login img {
+    height: 150px;
+    width: 150px;
+  }
 
 }
-
-
-
