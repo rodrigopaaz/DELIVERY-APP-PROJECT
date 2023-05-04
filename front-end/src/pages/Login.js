@@ -22,21 +22,13 @@ export default function Login() {
   };
 
   const validateData = async () => {
-    try {
-      const token = await requestLogin('/login', {
-        email: login.email,
-        password: login.password,
-      });
-      /*       const { role } = await requestData('/login/role', {
-        email: login.email,
-        password: login.password,
-      }); */
-      history.push('/products');
-      handleToken(token);
-      return JSON.parse(token);
-    } catch (error) {
-      return setInvalidUser(true);
-    }
+    const token = await requestLogin('/login', {
+      email: login.email,
+      password: login.password,
+    });
+    if (token.message) return setInvalidUser(true);
+    history.push('/products');
+    handleToken(token);
   };
 
   useEffect(() => {
