@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+// import Axios from 'axios';
+import { requestLogin /* requestData */ } from '../services/requests';
 import '../styles/login.css';
-import Axios from 'axios';
+import handleToken from '../utils/localStorage';
 
 export default function Login() {
   const history = useHistory();
@@ -21,12 +23,17 @@ export default function Login() {
 
   const validateData = async () => {
     try {
-      const { data } = await Axios.post('http://localhost:3001/login', {
+      const token = await requestLogin('/login', {
         email: login.email,
         password: login.password,
       });
-      console.log(data);
-      return JSON.parse(data);
+      /*       const { role } = await requestData('/login/role', {
+        email: login.email,
+        password: login.password,
+      }) */
+      history.push('/products');
+      handleToken(token, role);
+      return JSON.parse(token);
     } catch (error) {
       return setInvalidUser(true);
     }
@@ -69,7 +76,7 @@ export default function Login() {
             />
           </label>
           {invalidUser
-          && <p>Usuário inválido</p> }
+          && <p data-testid="common_login__element-invalid-email">Usuário inválido</p> }
           <button
             type="button"
             data-testid="common_login__button-login"

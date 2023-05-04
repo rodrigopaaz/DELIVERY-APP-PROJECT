@@ -10,4 +10,13 @@ const { loginService } = require('../services/Login.service');
         }
       };
 
-module.exports = loginController;
+      const getRoleController = async (req, res) => {
+        const payload = req.data;
+        const { role } = payload.data;
+        return res.status(200).json(role);
+      };
+
+module.exports = {
+  loginController,
+  getRoleController,
+};

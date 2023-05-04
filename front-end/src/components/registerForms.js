@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-// import { Navigate } from 'react-router-dom';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import AppContext from '../context/Context';
-import { requestLogin, setToken /* requestData */ } from '../services/requests';
+import { requestLogin, requestData } from '../services/requests';
+import handleToken from '../utils/localStorage';
 
 export default function RegisterForms() {
   const [isDisabled, setIsDisabled] = useState(true);
-  const [/* isLogged */, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const {
     name,
@@ -55,15 +56,8 @@ export default function RegisterForms() {
   const handleSubmit = async () => {
     try {
       const token = await requestLogin('/register', { name, email, password });
-
-      console.log('token register forms', token);
-      setToken(token);
-
-      // const { role } = await requestData('/login/role', { email, password });
-
-      localStorage.setItem('token', token);
-      // localStorage.setItem('role', role);
-
+      const { role } = await requestData('/login/role', { email, password });
+      handleToken(token, role);
       setIsLogged(true);
     } catch (error) {
       setFailedTryLogin(true);
@@ -80,7 +74,7 @@ export default function RegisterForms() {
     setFailedTryLogin(false);
   }, [name, email, password]);
 
-  // if (isLogged) return <Navigate to="/products" />;
+  if (isLogged) return <Redirect to="/products" />;
 
   return (
     <div>

@@ -1,5 +1,6 @@
 const md5 = require('md5');
 const { users } = require('../database/models');
+const { createToken } = require('../utils/JWT.token');
 
 const createUserService = async (info) => {
   try {
@@ -13,7 +14,8 @@ const createUserService = async (info) => {
         role,
       },
     );
-    return data;
+    const token = createToken({ data });
+    return token;
   } catch (error) {
     throw new Error(error);
   }

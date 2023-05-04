@@ -1,10 +1,14 @@
-const loginController = require('./Login.controller');
+const {
+    loginController,
+    getRoleController,
+} = require('./Login.controller');
 const { 
     createUserController,
     findAllUserController,
     findByIdUserController,
     updateUserController,
     deleteUserController,
+    
 } = require('./user.controller');
 
 module.exports = {
@@ -14,4 +18,5 @@ module.exports = {
     findByIdUserController,
     updateUserController,
     deleteUserController,
+    getRoleController,
 };
