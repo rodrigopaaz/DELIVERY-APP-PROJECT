@@ -39,10 +39,14 @@ const findByIdUserController = async (req, res) => {
 };
 
 const updateUserController = async (req, res) => {
-  const { id } = req.params;
-  const { name, email, password, role } = req.body;
-  const result = await updateUserService(id, { name, email, password, role });
-  res.status(200).json(result);
+  try {
+    const { id } = req.params;
+    const { name, email, password, role } = req.body;
+    await updateUserService(id, { name, email, password, role });
+    res.status(200).json({ message: 'update complete' });
+  } catch (error) {
+    res.status(404).json(error.message);
+  }
 };
 
 const deleteUserController = async (req, res) => {
