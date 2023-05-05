@@ -5,15 +5,15 @@ const { createToken } = require('../utils/JWT.token');
 const createUserService = async (info) => {
   try {
     const { name, email, password, role } = info;
-    const criptedPassword = md5(password);
-    const data = await users.create(
-      {
-        name,
-        email,
-        password: criptedPassword,
-        role,
-      },
-    );
+    const userExist = await users.findOne({
+      where: { name, email, password: md5(password), role } });
+    if (userExist) throw new Error('User alredy exists');
+    const data = await users.create({
+      name,
+      email,
+      password: md5(password),
+      role,
+    });
     const token = createToken({ data });
     return { token, role: data.role };
   } catch (error) {

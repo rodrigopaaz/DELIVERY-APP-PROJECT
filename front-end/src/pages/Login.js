@@ -18,21 +18,27 @@ export default function Login() {
     const isValisPassword = login.password.trim().length >= NUMBERSIX;
     if (isValidEmail && isValisPassword) {
       setIsDisabled(false);
-    } else { setIsDisabled(true); }
+    } else {
+      setIsDisabled(true);
+    }
   };
 
   const validateData = async () => {
-    const token = await requestLogin('/login', {
-      email: login.email,
-      password: login.password,
-    });
-    if (token.message) return setInvalidUser(true);
-    history.push('/products');
-    handleToken(token);
+    try {
+      const data = await requestLogin('/login', {
+        email: login.email,
+        password: login.password,
+      });
+      handleToken(data);
+      history.push(`/${data.role}/products`);
+    } catch (error) {
+      setInvalidUser(true);
+    }
   };
 
   useEffect(() => {
     validateInputs();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [login]);
 
   return (
@@ -67,8 +73,11 @@ export default function Login() {
               } }
             />
           </label>
-          {invalidUser
-          && <p data-testid="common_login__element-invalid-email">Usuário inválido</p> }
+          {invalidUser && (
+            <p data-testid="common_login__element-invalid-email">
+              Usuário inválido
+            </p>
+          )}
           <button
             type="button"
             data-testid="common_login__button-login"

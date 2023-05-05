@@ -4,6 +4,5 @@ const handleToken = ({ token, role }) => {
   setToken(token);
   localStorage.setItem('token', token);
   localStorage.setItem('role', role);
-/*   localStorage.setItem('role', role); */
 };
 export default handleToken;

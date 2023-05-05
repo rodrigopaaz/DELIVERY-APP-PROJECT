@@ -7,14 +7,8 @@ import handleToken from '../utils/localStorage';
 export default function RegisterForms() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
-  const {
-    name,
-    setName,
-    email,
-    setEmail,
-    password,
-    setPassword,
-  } = useContext(AppContext);
+  const { name, setName, email,
+    setEmail, password, setPassword } = useContext(AppContext);
 
   const history = useHistory();
 
@@ -35,12 +29,14 @@ export default function RegisterForms() {
 
   const handleSubmit = async () => {
     try {
-      const { token, role } = await requestLogin('/register', { name, email, password });
-      handleToken({ token, role });
-      console.log('estou aqui');
-      history.push('/products');
+      const data = await requestLogin('/register', {
+        name,
+        email,
+        password,
+      });
+      handleToken(data);
+      history.push(`/${data.role}/products`);
     } catch (error) {
-      console.log('estou aqui no erro');
       setFailedTryLogin(true);
     }
   };
@@ -102,18 +98,9 @@ export default function RegisterForms() {
           Cadastrar
         </button>
       </form>
-      {
-        (failedTryLogin)
-          ? (
-            <p data-testid="login__input_invalid_login_alert">
-              {
-                `O endereço de e-mail ou a senha não estão corretos.
-                    Por favor, tente novamente.`
-              }
-            </p>
-          )
-          : null
-      }
+      {failedTryLogin && (
+        <p data-testid="common_register__element-invalid_register">Usuário já existe</p>
+      )}
     </div>
   );
 }
