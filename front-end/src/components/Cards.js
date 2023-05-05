@@ -1,109 +1,74 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 
-class Cart {
-  componentDidMount() {
-    this.getSavedCartItems();
-  }
+export default function Card({ item }) {
+  const { id, urlImage } = item;
+  console.log(urlImage);
+  const [quantidade, setQuantidade] = useState(0);
 
-  getSavedCartItems = () => {
-    const get = JSON.parse(localStorage.getItem('cartItems'));
-    if (get !== null) {
-      this.setState({
-        car: JSON.parse(localStorage.getItem('cartItems')),
-      });
+  const handleChange = ({ target }) => {
+    const Inteiro = parseInt(target.value, 10);
+    if (Number.isNaN(Inteiro)) {
+      return setQuantidade(0);
+    }
+    setQuantidade(Inteiro);
+  };
+
+  const handleIncrease = () => {
+    setQuantidade(quantidade + 1);
+  };
+
+  const handleDecrease = () => {
+    if (quantidade > 0) {
+      setQuantidade(quantidade - 1);
+    } else {
+      setQuantidade(0);
     }
   };
 
-  handleIncrease = (i) => {
-    const { car } = this.state;
-    i.quantidade += 1;
-    this.setState(
-      () => ({
-        car,
-      }),
-      () => localStorage.setItem('cartItems', JSON.stringify(car)),
-    );
-  };
+  return (
+    <div>
+      <p data-testid={ `customer_products__element-card-title-${id}` }>
+        {item.name}
+      </p>
 
-  handleDecrease = (i) => {
-    const { car } = this.state;
-    if (i.quantidade > 1) {
-      i.quantidade -= 1;
-      const newCar = [...car];
-      this.setState(
-        () => ({
-          car: newCar,
-        }),
-        () => localStorage.setItem('cartItems', JSON.stringify(car)),
-      );
-    }
-  };
+      <img
+        data-testid={ `customer_products__img-card-bg-image-${id}` }
+        src={ item.urlImage }
+        alt={ item.name }
+      />
 
-  handleRemove = ({ target }) => {
-    const { car } = this.state;
-    const newList = car.filter((item) => item.id !== target.value);
-    localStorage.setItem('cartItems', JSON.stringify(newList));
-    this.setState({
-      car: newList,
-    });
-  };
+      <p data-testid={ `customer_products__element-card-price-${id}` }>
+        {item.price}
 
-  render() {
-    const { car } = this.state;
-    return (
-      <div>
-        <Link to="/checkout">
-          <button type="button" data-testid="checkout-products">
-            Finalizar Compra
-          </button>
-        </Link>
-        {car.length === 0 ? (
-          <p data-testid="shopping-cart-empty-message">
-            Seu carrinho está vazio
-          </p>
-        ) : (
-          <div>
-            {car.length > 0
-              && car.map((element, index) => (
-                <div key={ index }>
-                  <p data-testid="shopping-cart-product-name">
-                    {element.title}
-                  </p>
-                  <p>{element.price}</p>
-                  <button
-                    type="button"
-                    data-testid="product-increase-quantity"
-                    onClick={ () => this.handleIncrease(element) }
-                  >
-                    +
-                  </button>
-                  <p data-testid="shopping-cart-product-quantity">
-                    {element.quantidade}
-                  </p>
-                  <button
-                    type="button"
-                    data-testid="product-decrease-quantity"
-                    onClick={ () => this.handleDecrease(element) }
-                  >
-                    -
-                  </button>
-                  <button
-                    type="button"
-                    data-testid="remove-product"
-                    value={ element.id }
-                    onClick={ this.handleRemove }
-                  >
-                    Remover
-                  </button>
-                </div>
-              ))}
-          </div>
-        )}
-        <p>{car.length}</p>
-      </div>
-    );
-  }
+      </p>
+
+      <button
+        type="button"
+        name="add"
+        data-testid={ `customer_products__button-card-add-item-${id}` }
+        onClick={ handleIncrease }
+      >
+        +
+      </button>
+      <input
+        data-testid="shopping-cart-product-quantity"
+        type="number"
+        name="name"
+        value={ quantidade }
+        onChange={ handleChange }
+        placeholder="0"
+      />
+
+      <button
+        type="button"
+        name="rm"
+        data-testid={ `customer_products__button-card-rm-item-${id}` }
+        onClick={ () => handleDecrease() }
+      >
+        -
+      </button>
+    </div>
+  );
 }
 
-export default Cart;
+Card.propTypes = {}.isRequired;
