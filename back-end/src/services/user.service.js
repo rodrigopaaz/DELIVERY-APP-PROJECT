@@ -42,13 +42,19 @@ const findByIdUserService = async (id) => {
 const updateUserService = async (id, info) => {
   try {
     const exist = await findByIdUserService(id);
+    const { name, email, password, role } = info;
     if (!exist) {
-      return { message: 'Not Found' };
+      throw new Error('Not Found');
     }
-    const data = await users.updateByPk(id, info);
+    const data = await users.update({ 
+      name,
+      email,
+      password: md5(password),
+      role,
+  }, { where: { id } });
     return data;
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error.message);
   }
 };
 

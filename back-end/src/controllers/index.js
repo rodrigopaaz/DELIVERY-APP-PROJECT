@@ -1,6 +1,5 @@
 const {
     loginController,
-    getRoleController,
 } = require('./Login.controller');
 const { 
     createUserController,
@@ -11,6 +10,14 @@ const {
     
 } = require('./user.controller');
 
+const {
+    createProcuctController,
+    findAllProcuctController,
+    findByIdProdController,
+    updateProductController,
+    deleteProductController,
+} = require('./products.controller');
+
 module.exports = {
     loginController,
     createUserController,
@@ -18,5 +25,9 @@ module.exports = {
     findByIdUserController,
     updateUserController,
     deleteUserController,
-    getRoleController,
+    createProcuctController,
+    findAllProcuctController,
+    findByIdProdController,
+    updateProductController,
+    deleteProductController,
 };
