@@ -9,7 +9,7 @@ const loginService = async (email, passwordUncripted) => {
     throw new Error('Invalid login');
   }
   const token = createToken({ data });
-  return { token, role: data.role };
+  return { token, name: data.name, email, role: data.role };
 };
 
 module.exports = {
