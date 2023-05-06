@@ -1,62 +1,62 @@
-.div__header{
-    background-color: #036b52;
-    width: 100vw;
-    height: 105px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+.div__header {
+  align-items: center;
+  background-color: #036b52;
+  display: flex;
+  height: 105px;
+  justify-content: space-evenly;
+  width: 100vw;
 }
 
-.nav__header{
-    display: flex;
-    width: 100%;
-    height: 105px;
-    align-items: center;
-    justify-content: space-between;
+.nav__header {
+  align-items: center;
+  display: flex;
+  height: 105px;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.nav__header a:first-child{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20%;
-    text-align: center;
-    color: black;
-    background-color: rgb(47,193,140);
-    height: 105px;
+.nav__header a {
+  color: aliceblue;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.nav__header a:first-child {
+  align-items: center;
+  background-color: rgb(47, 193, 140);
+  color: black;
+  display: flex;
+  height: 105px;
+  justify-content: center;
+  text-align: center;
+  width: 20%;
 
 }
 
-.nav__header a:nth-child(2){
-    width: 45%;
-    padding: 5%;
+.nav__header a:nth-child( 2 ) {
+  padding: 5%;
+  width: 45%;
 }
 
-.nav__header p:nth-child(3){
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20%;
-    font-weight: 700;
-    text-align: center;
-    color: rgb(255, 255, 255);
-    background-color: rgb(66,25,129);
-    height: 105px;
+.nav__header p:nth-child( 3 ) {
+  align-items: center;
+  background-color: rgb(66, 25, 129);
+  color: white;
+  display: flex;
+  font-weight: 700;
+  height: 105px;
+  justify-content: center;
+  text-align: center;
+  width: 20%;
 }
 
-.nav__header a:nth-child(4){
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 10%;
-    text-align: center;
-    color: rgb(255, 255, 255);
-    background-color: rgb(5,108,249);
-    height: 105px
-}
-
-.nav__header a{
-    text-decoration: none ;
-    color: aliceblue;
-    font-weight: 700;
+.nav__header a:nth-child( 4 ) {
+  align-items: center;
+  background-color: rgb(5, 108, 249);
+  color: white;
+  display: flex;
+  height: 105px;
+  justify-content: center;
+  text-align: center;
+  width: 10%;
 }
