@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 export default function Card({ item }) {
-  const { id, urlImage } = item;
-  console.log(urlImage);
+  const { id } = item;
+
   const [quantidade, setQuantidade] = useState(0);
 
   const handleChange = ({ target }) => {
