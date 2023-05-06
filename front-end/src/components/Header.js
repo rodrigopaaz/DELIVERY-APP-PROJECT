@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import AppContext from '../context/Context';
+import '../styles/header.css';
 
 export default function Header() {
   const { name, setName, setEmail, role, setRole } = useContext(AppContext);
@@ -14,8 +15,8 @@ export default function Header() {
   }, [setEmail, setName, setRole]);
 
   return (
-    <div>
-      <nav>
+    <div className="div__header">
+      <nav className="nav__header">
         <Link
           to={ `/${role}/products` }
           data-testid="customer_products__element-navbar-link-products"

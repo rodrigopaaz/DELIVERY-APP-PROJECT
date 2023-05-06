@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import { requestData } from '../services/requests';
 import Card from '../components/Cards';
 import AppContext from '../context/Context';
+import '../styles/products.css';
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -34,7 +35,7 @@ function Products() {
   return (
     <div>
       <Header />
-      <div style={ { display: 'flex', flexWrap: 'wrap' } }>
+      <div className="div__products">
         {products.length
           && products.map(({ id, name, price, urlImage }) => (
             <Card
@@ -45,18 +46,18 @@ function Products() {
               urlImage={ urlImage }
             />
           ))}
+        <button
+          disabled={ !cart.length }
+          type="button"
+          data-testid="customer_products__button-cart"
+          onClick={ () => history.push(`/${role}/checkout`) }
+        >
+          Ver carrinho: R$
+          <p data-testid="customer_products__checkout-bottom-value">
+            { totalPrice }
+          </p>
+        </button>
       </div>
-      <button
-        disabled={ !cart.length }
-        type="button"
-        data-testid="customer_products__button-cart"
-        onClick={ () => history.push(`/${role}/checkout`) }
-      >
-        Ver carrinho: R$
-        <p data-testid="customer_products__checkout-bottom-value">
-          { totalPrice }
-        </p>
-      </button>
     </div>
   );
 }

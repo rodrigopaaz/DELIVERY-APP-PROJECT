@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import AppContext from '../context/Context';
+import '../styles/cards.css';
 
 export default function Card({ id, name, price, urlImage }) {
   const [quantidade, setQuantidade] = useState(0);
@@ -25,7 +26,7 @@ export default function Card({ id, name, price, urlImage }) {
   };
 
   return (
-    <div>
+    <div className="div__card">
       <p data-testid={ `customer_products__element-card-title-${id}` }>
         {name}
       </p>
