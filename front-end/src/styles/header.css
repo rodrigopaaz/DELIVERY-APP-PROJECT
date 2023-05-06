@@ -30,7 +30,6 @@
   justify-content: center;
   text-align: center;
   width: 20%;
-
 }
 
 .nav__header a:nth-child( 2 ) {
@@ -50,11 +49,14 @@
   width: 20%;
 }
 
-.nav__header a:nth-child( 4 ) {
+.nav__header button:nth-child( 4 ) {
   align-items: center;
   background-color: rgb(5, 108, 249);
+  border: none;
   color: white;
   display: flex;
+  font-size: medium;
+  font-weight: 700;
   height: 105px;
   justify-content: center;
   text-align: center;

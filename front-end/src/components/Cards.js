@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import AppContext from '../context/Context';
 import '../styles/cards.css';
 
@@ -24,6 +24,9 @@ export default function Card({ id, name, price, urlImage }) {
       setQuantidade(0);
     }
   };
+  useEffect(() => {
+
+  });
 
   return (
     <div className="div__card">
@@ -35,7 +38,6 @@ export default function Card({ id, name, price, urlImage }) {
         data-testid={ `customer_products__img-card-bg-image-${id}` }
         src={ urlImage }
         alt={ name }
-        width="200"
       />
 
       <p data-testid={ `customer_products__element-card-price-${id}` }>
@@ -54,8 +56,9 @@ export default function Card({ id, name, price, urlImage }) {
         data-testid={ `customer_products__input-card-quantity-${id}` }
         type="number"
         name="quantidade"
+        id={ price }
         value={ quantidade }
-        onChange={ handleChange }
+        onChange={ (e) => handleChange(e) }
         placeholder="0"
         min="0"
       />
