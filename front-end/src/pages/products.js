@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import { getAllProducts } from '../services/requests';
 import Card from '../components/Cards';
+import '../styles/products.css';
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -23,9 +24,11 @@ function Products() {
   return (
     <div>
       <Header />
-      { products.length && products.map((item) => (
-        <Card key={ item.id + item.name } item={ item } />
-      ))}
+      <div className="div__products">
+        { products.length && products.map((item) => (
+          <Card key={ item.id + item.name } item={ item } />
+        ))}
+      </div>
     </div>
   );
 }

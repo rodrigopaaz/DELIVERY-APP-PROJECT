@@ -1,0 +1,12 @@
+.div__card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    justify-content: center;
+}
+
+.div__card img{
+    max-width: 200px;
+    max-height: 200px;
+}

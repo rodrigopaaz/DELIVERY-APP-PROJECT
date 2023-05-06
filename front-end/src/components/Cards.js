@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/cards.css';
 
 export default function Card({ item }) {
   const { id } = item;
@@ -26,7 +27,7 @@ export default function Card({ item }) {
   };
 
   return (
-    <div>
+    <div className="div__card">
       <p data-testid={ `customer_products__element-card-title-${id}` }>
         {item.name}
       </p>

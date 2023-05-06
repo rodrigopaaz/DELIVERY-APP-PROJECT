@@ -1,0 +1,7 @@
+.div__products{
+    display: flex;
+    flex-wrap: wrap;
+    height: 90vh;
+    align-items: center;
+    justify-content: center;
+}
