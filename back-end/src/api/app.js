@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+
 const loginRouter = require('../routes/login.route');
 const userRouter = require('../routes/user.route');
 const productRouter = require('../routes/product.route');
@@ -7,12 +8,9 @@ const productRouter = require('../routes/product.route');
 const app = express();
 
 app.use(express.json());
-// path.join(__dirname + '/public');
-app.use('/images', express.static(`${__dirname}/public`));
-// app.use('/static', express.static(__dirname + '/public'));
-// app.use('/images', express.static('public'));
-
+app.use(express.static('public'));
 app.use(cors());
+
 app.use('/login', loginRouter);
 app.use('/register', userRouter);
 app.use('/products', productRouter);

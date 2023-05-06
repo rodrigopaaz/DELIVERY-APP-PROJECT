@@ -1,20 +1,17 @@
 import React, { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import AppContext from '../context/Context';
 
 export default function Header() {
   const { name, setName, setEmail, role, setRole } = useContext(AppContext);
+  const history = useHistory();
 
   useEffect(() => {
-    const login = JSON.parse(localStorage.getItem('login'));
-    setName(login.name);
-    setEmail(login.email);
-    setRole(login.role);
+    const user = JSON.parse(localStorage.getItem('user'));
+    setName(user.name);
+    setEmail(user.email);
+    setRole(user.role);
   }, [setEmail, setName, setRole]);
-
-  const clearData = () => {
-    localStorage.clear();
-  };
 
   return (
     <div>
@@ -34,13 +31,16 @@ export default function Header() {
         <p data-testid="customer_products__element-navbar-user-full-name">
           {name}
         </p>
-        <Link
-          to="/login"
+        <button
+          type="button"
           data-testid="customer_products__element-navbar-link-logout"
-          onClick={ clearData }
+          onClick={ () => {
+            localStorage.clear();
+            history.push('/login');
+          } }
         >
           Sair
-        </Link>
+        </button>
       </nav>
     </div>
   );
