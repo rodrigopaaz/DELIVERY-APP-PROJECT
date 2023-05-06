@@ -1,6 +1,7 @@
 .div__products{
     display: flex;
     flex-wrap: wrap;
+    width: 80vw;
     height: 90vh;
     align-items: center;
     justify-content: center;
