@@ -1,6 +1,5 @@
 const express = require('express');
 const { 
-    createUserController,
     findAllUserController,
     findByIdUserController,
     updateUserController,
@@ -10,7 +9,6 @@ const {
 
 const userRouter = express.Router();
 
-userRouter.post('/', createUserController);
 userRouter.get('/', validateToken, findAllUserController);
 userRouter.get('/:id', validateToken, findByIdUserController);
 userRouter.put('/:id', validateToken, updateUserController);
