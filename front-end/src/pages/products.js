@@ -14,21 +14,28 @@ function Products() {
   const handleProducts = async () => {
     try {
       const data = await requestData('/products');
-      setProducts(data);
+      const productsWithQuantity = data.map((product) => {
+        product.quantity = 0;
+        return product;
+      });
+      setProducts(productsWithQuantity);
     } catch (error) {
       setProducts([]);
     }
   };
 
   const sumTotalCart = () => {
-    const prices = cart.map((elem) => parseFloat(elem.price));
-    const totalCart = prices.reduce((acc, price) => acc + price, 0);
-    setTotalPrice(totalCart.toFixed(2).replace(/\./, ','));
+    const pricesToNumber = cart.map((elem) => ({ ...elem, price: Number(elem.price) }));
+    const totalCart = pricesToNumber
+      .reduce((acc, product) => acc + (product.price * product.quantity), 0);
+    const totalCartFixed = totalCart.toFixed(2);
+    setTotalPrice(totalCartFixed.replace('.', ','));
   };
 
   useEffect(() => {
     handleProducts();
     sumTotalCart();
+    localStorage.setItem('cart', JSON.stringify(cart));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart]);
 
@@ -37,13 +44,14 @@ function Products() {
       <Header />
       <div className="div__products">
         {products.length
-          && products.map(({ id, name, price, urlImage }) => (
+          && products.map(({ id, name, price, urlImage, quantity }) => (
             <Card
               key={ id }
               id={ id }
               name={ name }
               price={ price }
               urlImage={ urlImage }
+              quantity={ quantity }
             />
           ))}
         <button
