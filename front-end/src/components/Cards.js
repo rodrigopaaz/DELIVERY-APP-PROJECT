@@ -1,32 +1,56 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import AppContext from '../context/Context';
 import '../styles/cards.css';
 
-export default function Card({ id, name, price, urlImage }) {
+export default function Card({ id, name, price, urlImage, quantity }) {
   const [quantidade, setQuantidade] = useState(0);
   const { cart, setCart } = useContext(AppContext);
 
-  const handleChange = ({ target }) => {
-    setQuantidade(target.value);
+  const handleChange = ({ target }, product) => {
+    const newQuantity = target.value;
+    if (product.quantity !== newQuantity) {
+      setQuantidade(newQuantity);
+    }
+    const productFindInput = cart.findIndex((item) => item.id === product.id);
+    if (productFindInput >= 0) {
+      const updatedCart = cart.map((item, index) => (index === productFindInput
+        ? { ...item, quantity: parseInt(newQuantity, 10) } : item));
+        // Cria um novo array de itens no carrinho com a quantidade atualizada para o item correspondente//
+      setCart(updatedCart.filter((item) => item.quantity > 0));
+      // Atualiza o carrinho com o novo array de itens, removendo qualquer item com quantidade zero//
+    } else {
+      const updatedCart = [...cart, { ...product, quantity: parseInt(newQuantity, 10) }];
+      // Adiciona o novo item ao carrinho com a quantidade especificada //
+      setCart(updatedCart);
+    }
   };
 
   const handleIncrease = (product) => {
-    setQuantidade(quantidade + 1);
-    setCart([...cart, product]);
-  };
-
-  const handleDecrease = (productId) => {
-    if (quantidade > 0) {
-      setQuantidade(quantidade - 1);
-      const filteredCart = cart.filter((product) => product.id !== productId);
-      setCart(filteredCart);
+    const productFind = cart.find((item) => item.id === product.id);
+    if (productFind) {
+      setCart(cart.map((item) => (item.id === product.id ? {
+        ...item, quantity: item.quantity + 1,
+      } : item)));
     } else {
-      setQuantidade(0);
+      setCart([...cart, { ...product, quantity: 1 }]);
     }
+    setQuantidade(quantidade + 1);
   };
-  useEffect(() => {
 
-  });
+  const handleDecrease = (product) => {
+    const productFind = cart.find((item) => item.id === product.id);
+    if (productFind) {
+      if (productFind.quantity > 1) {
+        setCart(cart.map((item) => (item.id === product.id ? {
+          ...item, quantity: item.quantity - 1,
+        } : item)));
+      } else {
+        const cartUpdated = cart.filter((item) => item.id !== product.id);
+        setCart(cartUpdated);
+      }
+    }
+    setQuantidade(quantidade - 1);
+  };
 
   return (
     <div className="div__card">
@@ -48,7 +72,7 @@ export default function Card({ id, name, price, urlImage }) {
         type="button"
         name="add"
         data-testid={ `customer_products__button-card-add-item-${id}` }
-        onClick={ () => handleIncrease({ id, name, price }) }
+        onClick={ () => handleIncrease({ id, name, price, quantity }) }
       >
         +
       </button>
@@ -56,9 +80,8 @@ export default function Card({ id, name, price, urlImage }) {
         data-testid={ `customer_products__input-card-quantity-${id}` }
         type="number"
         name="quantidade"
-        id={ price }
         value={ quantidade }
-        onChange={ (e) => handleChange(e) }
+        onChange={ (e) => handleChange(e, { id, name, price, quantity }) }
         placeholder="0"
         min="0"
       />
@@ -67,7 +90,8 @@ export default function Card({ id, name, price, urlImage }) {
         type="button"
         name="rm"
         data-testid={ `customer_products__button-card-rm-item-${id}` }
-        onClick={ () => handleDecrease(id) }
+        onClick={ () => handleDecrease({ id, name, price, quantity }) }
+        disabled={ quantidade <= 0 }
       >
         -
       </button>
