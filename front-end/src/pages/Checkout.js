@@ -31,15 +31,15 @@ export default function Checkout() {
     }
   };
 
-  const cartTest = [
+  /*   const cartTest = [
     { id: 1, name: 'teste 1', price: 2.99, quantity: 2 },
     { id: 2, name: 'teste 2', price: 1.99, quantity: 1 },
     { id: 3, name: 'teste 3', price: 4.99, quantity: 5 },
     { id: 4, name: 'teste 4', price: 6.99, quantity: 8 },
   ];
-
+ */
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cartTest));
+    /*  localStorage.setItem('cart', JSON.stringify(cartTest)); */
     getSellers();
     const items = JSON.parse(localStorage.getItem('cart'));
     setCart(items);
