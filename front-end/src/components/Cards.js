@@ -3,8 +3,10 @@ import AppContext from '../context/Context';
 import '../styles/cards.css';
 
 export default function Card({ id, name, price, urlImage, quantity }) {
-  const [quantidade, setQuantidade] = useState(0);
   const { cart, setCart } = useContext(AppContext);
+  const cardInCart = cart.find((item) => item.id === id && item.quantity > 0);
+  const defaultQuantity = cardInCart ? cardInCart.quantity : 0;
+  const [quantidade, setQuantidade] = useState(defaultQuantity);
 
   const handleChange = ({ target }, product) => {
     const newQuantity = target.value;
@@ -15,7 +17,7 @@ export default function Card({ id, name, price, urlImage, quantity }) {
     if (productFindInput >= 0) {
       const updatedCart = cart.map((item, index) => (index === productFindInput
         ? { ...item, quantity: parseInt(newQuantity, 10) } : item));
-        // Cria um novo array de itens no carrinho com a quantidade atualizada para o item correspondente//
+      // Cria um novo array de itens no carrinho com a quantidade atualizada para o item correspondente//
       setCart(updatedCart.filter((item) => item.quantity > 0));
       // Atualiza o carrinho com o novo array de itens, removendo qualquer item com quantidade zero//
     } else {

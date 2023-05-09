@@ -9,13 +9,16 @@ export const setToken = (token) => {
 };
 
 export const requestData = async (endpoint) => {
-  console.log(endpoint, 'endp');
   const { data } = await api.get(endpoint);
-  console.log(data, 'data');
   return data;
 };
 
 export const requestLogin = async (endpoint, body) => {
+  const { data } = await api.post(endpoint, body);
+  return data;
+};
+
+export const requestSale = async (endpoint, body) => {
   const { data } = await api.post(endpoint, body);
   return data;
 };

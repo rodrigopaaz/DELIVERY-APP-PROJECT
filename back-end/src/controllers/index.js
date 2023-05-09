@@ -1,13 +1,13 @@
 const {
     loginController,
 } = require('./Login.controller');
+
 const { 
     createUserController,
     findAllUserController,
     findByIdUserController,
     updateUserController,
-    deleteUserController,
-    
+    deleteUserController,    
 } = require('./user.controller');
 
 const {
@@ -17,6 +17,10 @@ const {
     updateProductController,
     deleteProductController,
 } = require('./products.controller');
+
+const {
+    createSaleController,
+} = require('./sale.controller');
 
 module.exports = {
     loginController,
@@ -30,4 +34,5 @@ module.exports = {
     findByIdProdController,
     updateProductController,
     deleteProductController,
+    createSaleController,
 };

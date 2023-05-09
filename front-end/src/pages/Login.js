@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 // import Axios from 'axios';
 import { requestLogin /* requestData */ } from '../services/requests';
 import '../styles/login.css';
 import handleToken from '../utils/localStorage';
+import AppContext from '../context/Context';
 
 export default function Login() {
   const history = useHistory();
   const [login, setLogin] = useState({ email: '', password: '' });
   const [invalidUser, setInvalidUser] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
+  const { setEmail } = useContext(AppContext);
 
   const validateInputs = () => {
     const NUMBERSIX = 6;
@@ -55,6 +57,7 @@ export default function Login() {
               value={ login.email }
               onChange={ ({ target: { name, value } }) => {
                 setLogin({ ...login, [name]: value });
+                setEmail(value);
                 validateInputs();
               } }
             />
