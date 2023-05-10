@@ -16,7 +16,7 @@ const createSaleController = async (req, res) => {
 
 const findByIdSaleController = async (req, res) => {
   try {
-    const {email} = req.body
+    const { email } = req.body;
     const result = await findByIdSaleService(email);
     res.status(201).json(result);
   } catch (error) {
@@ -39,5 +39,5 @@ const updateSalesController = async (req, res) => {
 module.exports = {
   createSaleController,
   updateSalesController,
-  findByIdSaleController
+  findByIdSaleController,
 };

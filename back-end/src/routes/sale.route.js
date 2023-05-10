@@ -2,9 +2,9 @@ const express = require('express');
 const { 
     createSaleController,
      updateSalesController,
-     findByIdSaleController
+     findByIdSaleController,
  } = require('../controllers');
- //const validateToken = require('../middlewares/token.validate')
+ // const validateToken = require('../middlewares/token.validate')
 
 const saleRouter = express.Router();
 

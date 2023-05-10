@@ -38,5 +38,5 @@ module.exports = {
     deleteProductController,
     createSaleController,
     updateSalesController,
-    findByIdSaleController
+    findByIdSaleController,
 };
