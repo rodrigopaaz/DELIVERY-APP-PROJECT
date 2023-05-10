@@ -57,5 +57,4 @@ module.exports = {
   createSaleService,
   findByIdSaleService,
   updateSaleService,
-  findByIdSaleService,
 };
