@@ -6,10 +6,9 @@ import AppContext from '../context/Context';
 
 export default function Checkout() {
   const [sellers, setSellers] = useState([]);
-  const [role, setRole] = useState('');
   const [total, setTotal] = useState(0);
   const [info, setInfo] = useState({ seller: '2', address: '', number: '' });
-  const { cart, setCart, email } = useContext(AppContext);
+  const { cart, setCart, email, setOrder, role, setRole } = useContext(AppContext);
   const history = useHistory();
 
   const getSellers = async () => {
@@ -44,13 +43,17 @@ export default function Checkout() {
 
   const handleCheckout = async () => {
     try {
-      const { id } = await requestSale('/sales', {
+      const { id, saleDate, status, sellerId, totalPrice } = await requestSale('/sales', {
         address: info.address,
         number: info.number,
         email,
         seller: info.seller,
         total,
         products: cart,
+      });
+      const { name } = sellers.find((seller) => seller.id === Number(sellerId));
+      setOrder({
+        id, saleDate, seller: name, status, totalPrice,
       });
       history.push(`/${role}/orders/${id}`);
     } catch (error) {

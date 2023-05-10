@@ -31,7 +31,6 @@ const updateSalesController = async (req, res) => {
     await updateSaleService(id, sale);
     res.status(200).json({ message: 'update complete' });
   } catch (error) {
-    console.log('cheguei aqui');
     res.status(404).json(error.message);
   }
 };

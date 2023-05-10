@@ -17,15 +17,14 @@ const createSaleService = async (sale) => {
       totalPrice: Number(total),
       deliveryAddress: address,
       deliveryNumber: number,
+      saleDate: new Date(),
       status: 'Pendente',
     });
     await Promise.all(products.map(async ({ id, quantity }) => SalesProduct.create({
       saleId: newSale.id, productId: id, quantity,
     })));
     return newSale;
-  } catch (error) {
-    throw new Error(error.message);
-  }
+  } catch (error) { throw new Error(error.message); }
 };
 
 const findByIdSaleService = async (email) => {
@@ -42,16 +41,10 @@ const findByIdSaleService = async (email) => {
 
 const updateSaleService = async (id, info) => {
   try {
-    const { address, number, email, seller, total, status } = info;
-    const userId = findUserByEmail(email);
-    const exist = await sales.findByPk(id);
+    const { status } = info;
+    const exist = await findByIdSaleService(id);
     if (!exist) throw new Error('Not Found');
     const data = await sales.update({
-      userId,
-      sellerId: seller,
-      totalPrice: Number(total),
-      deliveryAddress: address,
-      deliveryNumber: number,
       status,
     }, { where: { id } });
     return data;
@@ -62,6 +55,7 @@ const updateSaleService = async (id, info) => {
 
 module.exports = {
   createSaleService,
+  findByIdSaleService,
   updateSaleService,
   findByIdSaleService,
 };
