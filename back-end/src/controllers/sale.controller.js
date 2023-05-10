@@ -1,5 +1,8 @@
-const { createSaleService,
-  updateSaleService, findByIdSaleService } = require('../services/sale.service');
+const { 
+  createSaleService,
+   updateSaleService,
+   findByIdSaleService,
+   } = require('../services/sale.service');
 
 const createSaleController = async (req, res) => {
   try {
@@ -13,12 +16,9 @@ const createSaleController = async (req, res) => {
 
 const findByIdSaleController = async (req, res) => {
   try {
-    const { id } = req.params;
-  const result = await findByIdSaleService(id);
-  if (!result) {
-    res.status(404).json({ message: 'Not Found' });
-  }
-  res.status(200).json(result);
+    const { email } = req.body;
+    const result = await findByIdSaleService(email);
+    res.status(201).json(result);
   } catch (error) {
     res.status(409).json(error.message);
   }

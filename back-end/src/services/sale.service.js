@@ -2,6 +2,11 @@ const { sales } = require('../database/models');
 const { users } = require('../database/models');
 const { sales_products: SalesProduct } = require('../database/models');
 
+const findUserByEmail = async (email) => {
+  const { id: userId } = await users.findOne({ where: { email } });
+  return userId;
+};
+
 const createSaleService = async (sale) => {
   try {
     const { address, number, email, seller, total, products } = sale;
@@ -22,9 +27,10 @@ const createSaleService = async (sale) => {
   } catch (error) { throw new Error(error.message); }
 };
 
-const findByIdSaleService = async (id) => {
+const findByIdSaleService = async (email) => {
   try {
-    const data = await sales.findByPk(id);
+    const userId = await findUserByEmail(email);
+    const data = await sales.findAll({ where: { userId } });
     return data;
   } catch (error) {
     throw new Error(error);
@@ -51,4 +57,5 @@ module.exports = {
   createSaleService,
   findByIdSaleService,
   updateSaleService,
+  findByIdSaleService,
 };
