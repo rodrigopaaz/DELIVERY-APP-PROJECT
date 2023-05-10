@@ -1,58 +1,60 @@
-const {
-  createUserService,
-  findAllUserService,
-  findByIdUserService,
-  updateUserService,
-  deleteUserService,
-} = require('../services/user.service');
+// const {
+//   createUserService,
+//   findAllUserService,
+//   findByIdUserService,
+//   updateUserService,
+//   deleteUserService,
+// } = require('../services/user.service');
+
+const serviceUser = require('../services/user.service');
 
 const createUserController = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    const result = await createUserService({
+    const result = await serviceUser.createUserService({
       name,
       email,
       password,
       role: 'customer',
     });
-    res.status(201).json(result);
+    return res.status(201).json(result);
   } catch (error) {
-    res.status(409).json(error.message);
+    return res.status(409).json(error.message);
   }
 };
 
 const findAllUserController = async (_req, res) => {
-  const result = await findAllUserService();
+  const result = await serviceUser.findAllUserService();
   if (!result) {
-    res.status(404).json({ message: 'Not Found' });
+    return res.status(404).json({ message: 'Not Found' });
   }
-  res.status(200).json(result);
+  return res.status(200).json(result);
 };
 
 const findByIdUserController = async (req, res) => {
   const { id } = req.params;
-  const result = await findByIdUserService(id);
+  const result = await serviceUser.findByIdUserService(id);
   if (!result) {
-    res.status(404).json({ message: 'Not Found' });
+    return res.status(404).json({ message: 'Not Found' });
   }
-  res.status(200).json(result);
+  return res.status(200).json(result);
 };
 
 const updateUserController = async (req, res) => {
   try {
     const { id } = req.params;
     const { name, email, password, role } = req.body;
-    await updateUserService(id, { name, email, password, role });
-    res.status(200).json({ message: 'update complete' });
+    await serviceUser.updateUserService(id, { name, email, password, role });
+    return res.status(200).json({ message: 'update complete' });
   } catch (error) {
-    res.status(404).json(error.message);
+    return res.status(404).json(error.message);
   }
 };
 
 const deleteUserController = async (req, res) => {
   const { id } = req.params;
-  await deleteUserService(id);
-  res.status(204).end();
+  await serviceUser.deleteUserService(id);
+  return res.status(204).end();
 };
 
 module.exports = {
