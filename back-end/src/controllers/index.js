@@ -20,6 +20,7 @@ const {
 
 const {
     createSaleController,
+    updateSalesController,
 } = require('./sale.controller');
 
 module.exports = {
@@ -35,4 +36,5 @@ module.exports = {
     updateProductController,
     deleteProductController,
     createSaleController,
+    updateSalesController,
 };

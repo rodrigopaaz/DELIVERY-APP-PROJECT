@@ -1,4 +1,4 @@
-const { createSaleService } = require('../services/sale.service');
+const { createSaleService, updateSaleService } = require('../services/sale.service');
 
 const createSaleController = async (req, res) => {
   try {
@@ -10,6 +10,19 @@ const createSaleController = async (req, res) => {
   }
 };
 
+const updateSalesController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const sale = req.body;
+    await updateSaleService(id, sale);
+    res.status(200).json({ message: 'update complete' });
+  } catch (error) {
+    console.log('cheguei aqui');
+    res.status(404).json(error.message);
+  }
+};
+
 module.exports = {
   createSaleController,
+  updateSalesController,
 };
