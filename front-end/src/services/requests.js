@@ -18,6 +18,11 @@ export const requestLogin = async (endpoint, body) => {
   return data;
 };
 
+export const updateSale = async (endpoint, body) => {
+  const { data } = await api.put(endpoint, body);
+  return data;
+};
+
 export const requestSale = async (endpoint, body) => {
   const { data } = await api.post(endpoint, body);
   return data;

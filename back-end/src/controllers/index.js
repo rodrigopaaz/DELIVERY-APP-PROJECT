@@ -21,6 +21,7 @@ const {
 const {
     createSaleController,
     updateSalesController,
+    findByIdSaleController,
 } = require('./sale.controller');
 
 module.exports = {
@@ -37,4 +38,5 @@ module.exports = {
     deleteProductController,
     createSaleController,
     updateSalesController,
+    findByIdSaleController,
 };
