@@ -39,9 +39,13 @@ export default function Login() {
   };
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      history.push('/customer/products');
+    }
     validateInputs();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [login]);
+  }, [login], [history]);
 
   return (
     <div className="main__login">

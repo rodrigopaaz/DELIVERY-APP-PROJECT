@@ -1,9 +1,23 @@
-const { createSaleService, updateSaleService } = require('../services/sale.service');
+const { 
+  createSaleService,
+   updateSaleService,
+   findByIdSaleService,
+   } = require('../services/sale.service');
 
 const createSaleController = async (req, res) => {
   try {
     const sale = req.body;
     const result = await createSaleService(sale);
+    res.status(201).json(result);
+  } catch (error) {
+    res.status(409).json(error.message);
+  }
+};
+
+const findByIdSaleController = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const result = await findByIdSaleService(email);
     res.status(201).json(result);
   } catch (error) {
     res.status(409).json(error.message);
@@ -25,4 +39,5 @@ const updateSalesController = async (req, res) => {
 module.exports = {
   createSaleController,
   updateSalesController,
+  findByIdSaleController,
 };
