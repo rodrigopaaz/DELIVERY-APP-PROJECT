@@ -5,6 +5,7 @@ import { requestLogin /* requestData */ } from '../services/requests';
 import '../styles/login.css';
 import handleToken from '../utils/localStorage';
 import AppContext from '../context/Context';
+import logo from '../images/ze-logo.png';
 
 export default function Login() {
   const history = useHistory();
@@ -50,6 +51,8 @@ export default function Login() {
   return (
     <div className="main__login">
       <div className="form__login">
+        <img src={ logo } alt="logo do birita" />
+        <h5>Delivery</h5>
         <form>
           <label htmlFor="email">
             <input

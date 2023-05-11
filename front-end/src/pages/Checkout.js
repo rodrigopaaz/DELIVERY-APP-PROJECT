@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestData, requestSale, setToken } from '../services/requests';
 import Header from '../components/Header';
 import AppContext from '../context/Context';
+import '../styles/checkout.css';
 
 export default function Checkout() {
   const [sellers, setSellers] = useState([]);
@@ -76,119 +78,125 @@ export default function Checkout() {
   });
 
   return (
-    <div>
+    <div className="div__checkout">
       <Header />
       <h3>Finalizar Pedido</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Sub-total</th>
-            <th>Remover Item</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cart && cart.map((item, i) => (
-            <tr key={ i + item.name }>
-              <td
-                data-testid={ `customer_checkout__element-order-table-item-number-${i}` }
-              >
-                {i + 1}
-              </td>
-              <td
-                data-testid={ `customer_checkout__element-order-table-name-${i}` }
-              >
-                {item.name}
-              </td>
-              <td
-                data-testid={ `customer_checkout__element-order-table-quantity-${i}` }
-              >
-                {item.quantity}
-              </td>
-              <td
-                data-testid={ `customer_checkout__element-order-table-unit-price-${i}` }
-              >
-                {item.price.replace(/\./, ',')}
-              </td>
-              <td data-testid={ `customer_checkout__element-order-table-sub-total-${i}` }>
-                {(Number(item.quantity) * Number(item.price)).toFixed(2).replace(/\./, ',')}
-              </td>
-              <td>
-                <button
-                  type="button"
-                  data-testid={ `customer_checkout__element-order-table-remove-${i}` }
-                  onClick={ () => removeItem(item.id) }
-                >
-                  Remover
-                </button>
-              </td>
+      <div className="div__table_content">
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Descrição</th>
+              <th>Quantidade</th>
+              <th>Valor Unitário</th>
+              <th>Sub-total</th>
+              <th>Remover Item</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-
+          </thead>
+          <tbody>
+            {cart && cart.map((item, i) => (
+              <tr key={ i + item.name } className="table__tr">
+                <td
+                  data-testid={
+                    `customer_checkout__element-order-table-item-number-${i}`
+                  }
+                >
+                  {i + 1}
+                </td>
+                <td
+                  data-testid={ `customer_checkout__element-order-table-name-${i}` }
+                >
+                  {item.name}
+                </td>
+                <td
+                  data-testid={ `customer_checkout__element-order-table-quantity-${i}` }
+                >
+                  {item.quantity}
+                </td>
+                <td
+                  data-testid={ `customer_checkout__element-order-table-unit-price-${i}` }
+                >
+                  {item.price.replace(/\./, ',')}
+                </td>
+                <td
+                  data-testid={ `customer_checkout__element-order-table-sub-total-${i}` }
+                >
+                  {(Number(item.quantity) * Number(item.price)).toFixed(2).replace(/\./, ',')}
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    data-testid={ `customer_checkout__element-order-table-remove-${i}` }
+                    onClick={ () => removeItem(item.id) }
+                  >
+                    Remover
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <p data-testid="customer_checkout__element-order-total-price">
         Total: R$
         { total.toFixed(2).replace(/\./, ',') }
       </p>
+      <div className="div__address">
+        <h3>Detalhes e Endereço para Entrega</h3>
 
-      <h3>Detalhes e Endereço para Entrega</h3>
+        <form>
+          <label htmlFor="seller">
+            P. Vendedora Responsável
+            <select
+              id="seller"
+              data-testid="customer_checkout__select-seller"
+              name="seller"
+              value={ info.seller }
+              onChange={ handleChange }
+            >
+              {sellers.map((sel) => (
+                <option
+                  key={ sel.id + sel.name }
+                  value={ sel.id }
+                >
+                  {sel.name}
+                </option>))}
+            </select>
+          </label>
+          <label htmlFor="address">
+            Endereço
+            <input
+              type="text"
+              id="address"
+              data-testid="customer_checkout__input-address"
+              name="address"
+              required
+              value={ info.address }
+              onChange={ handleChange }
+            />
+          </label>
+          <label htmlFor="number">
+            Número
+            <input
+              type="text"
+              id="number"
+              data-testid="customer_checkout__input-address-number"
+              name="number"
+              required
+              value={ info.number }
+              onChange={ handleChange }
+            />
+          </label>
+        </form>
 
-      <form>
-        <label htmlFor="seller">
-          P. Vendedora Responsável
-          <select
-            id="seller"
-            data-testid="customer_checkout__select-seller"
-            name="seller"
-            value={ info.seller }
-            onChange={ handleChange }
-          >
-            {sellers.map((sel) => (
-              <option
-                key={ sel.id + sel.name }
-                value={ sel.id }
-              >
-                {sel.name}
-              </option>))}
-          </select>
-        </label>
-        <label htmlFor="address">
-          Endereço
-          <input
-            type="text"
-            id="address"
-            data-testid="customer_checkout__input-address"
-            name="address"
-            required
-            value={ info.address }
-            onChange={ handleChange }
-          />
-        </label>
-        <label htmlFor="number">
-          Número
-          <input
-            type="text"
-            id="number"
-            data-testid="customer_checkout__input-address-number"
-            name="number"
-            required
-            value={ info.number }
-            onChange={ handleChange }
-          />
-        </label>
-      </form>
-
-      <button
-        type="button"
-        data-testid="customer_checkout__button-submit-order"
-        onClick={ handleCheckout }
-      >
-        Finalizar Pedido
-      </button>
+        <button
+          type="button"
+          data-testid="customer_checkout__button-submit-order"
+          onClick={ handleCheckout }
+        >
+          Finalizar Pedido
+        </button>
+      </div>
     </div>
   );
 }

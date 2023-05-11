@@ -69,34 +69,35 @@ export default function Card({ id, name, price, urlImage, quantity }) {
       <p data-testid={ `customer_products__element-card-price-${id}` }>
         {price.replace(/\./, ',')}
       </p>
+      <div className="div__product__quantity">
+        <button
+          type="button"
+          name="add"
+          data-testid={ `customer_products__button-card-add-item-${id}` }
+          onClick={ () => handleIncrease({ id, name, price, quantity }) }
+        >
+          +
+        </button>
+        <input
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+          type="number"
+          name="quantidade"
+          value={ quantidade }
+          onChange={ (e) => handleChange(e, { id, name, price, quantity }) }
+          placeholder="0"
+          min="0"
+        />
 
-      <button
-        type="button"
-        name="add"
-        data-testid={ `customer_products__button-card-add-item-${id}` }
-        onClick={ () => handleIncrease({ id, name, price, quantity }) }
-      >
-        +
-      </button>
-      <input
-        data-testid={ `customer_products__input-card-quantity-${id}` }
-        type="number"
-        name="quantidade"
-        value={ quantidade }
-        onChange={ (e) => handleChange(e, { id, name, price, quantity }) }
-        placeholder="0"
-        min="0"
-      />
-
-      <button
-        type="button"
-        name="rm"
-        data-testid={ `customer_products__button-card-rm-item-${id}` }
-        onClick={ () => handleDecrease({ id, name, price, quantity }) }
-        disabled={ quantidade <= 0 }
-      >
-        -
-      </button>
+        <button
+          type="button"
+          name="rm"
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
+          onClick={ () => handleDecrease({ id, name, price, quantity }) }
+          disabled={ quantidade <= 0 }
+        >
+          -
+        </button>
+      </div>
     </div>
   );
 }

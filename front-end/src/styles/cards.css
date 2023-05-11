@@ -11,7 +11,30 @@
   width: 15%;
 }
 
+.div__card p:nth-child(1){
+  height: 50px;
+  font-weight: 900;
+}
+
 .div__card img {
-  max-height: 200px;
-  max-width: 200px;
+  max-height: 130px;
+  max-width: 130px;
+}
+
+.div__product__quantity{
+  display: flex;
+}
+
+.div__product__quantity input{
+  width: 80px;
+  text-align: center;
+}
+
+.div__product__quantity button{
+  font-weight: 900;
+  border: none;
+  width: 40px;
+  height: 40px;
+  color: white;
+  background-color: rgb(3,107,82);
 }

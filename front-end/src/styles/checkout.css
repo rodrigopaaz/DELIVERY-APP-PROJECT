@@ -1,0 +1,59 @@
+.div__checkout{
+    display: flex;
+    flex-direction: column;
+}
+
+.div__checkout h3:nth-child(2){
+  width: 100%;
+  margin-left: 50px;
+}
+
+.div__checkout p:nth-child(4){
+display: flex;
+justify-content: center;
+align-items: center;
+width: 200px;
+height: 30px;
+background-color: rgb(3,107,82) ;
+color: aliceblue;
+font-weight: 900;
+}
+
+.div__table_content{
+    table-layout: fixed;
+    min-height: 50vh;
+    border: 1px double rgb(230, 230, 230);
+    width: 100%;
+    margin-left: 50px;
+    padding: 10px;
+  }
+
+  .div__checkout table{
+    width: 100%;
+  }
+
+.table__tr td{
+    table-layout: fixed;
+    height: 30px;
+    padding: 5px;
+    text-align: center;
+    vertical-align: top;
+    background-color: rgb(231, 231, 231);
+    text-align:start;
+    text-orientation: upright
+    
+    ;
+}
+
+.table__tr td button{
+    width: 100%;
+}
+
+.div__address{
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+

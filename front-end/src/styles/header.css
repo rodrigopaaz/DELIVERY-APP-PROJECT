@@ -2,6 +2,8 @@
   align-items: center;
   background-color: #036b52;
   display: flex;
+  position: fixed;
+  top: 0;
   height: 105px;
   justify-content: space-evenly;
   width: 100vw;
