@@ -10,10 +10,16 @@
 
 .div__checkout p:nth-child(4){
 display: flex;
+border-radius: 5px;
 justify-content: center;
 align-items: center;
-width: 200px;
-height: 30px;
+align-self: end;
+width: 300px;
+height: 60px;
+position: absolute;
+bottom: 0;
+right: 0;
+margin: 50px;
 background-color: rgb(3,107,82) ;
 color: aliceblue;
 font-weight: 900;
@@ -21,7 +27,7 @@ font-weight: 900;
 
 .div__table_content{
     table-layout: fixed;
-    min-height: 50vh;
+    min-height: 40vh;
     border: 1px double rgb(230, 230, 230);
     width: 100%;
     margin-left: 50px;
@@ -34,26 +40,85 @@ font-weight: 900;
 
 .table__tr td{
     table-layout: fixed;
-    height: 30px;
-    padding: 5px;
+    height: 15px;
+    padding: 10px;
     text-align: center;
     vertical-align: top;
-    background-color: rgb(231, 231, 231);
+    background-color: rgb(234,241,239);
     text-align:start;
-    text-orientation: upright
-    
+    text-orientation: upright;
     ;
 }
 
+
+.table__tr td:first-child{
+background-color: rgb(47,193,140);
+text-align: center;
+border-top-left-radius: 5px;
+border-bottom-left-radius: 5px;
+}    
 .table__tr td button{
     width: 100%;
+    height: 40px;
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-weight: 900;
+    font-size: 15px;
+}
+
+.table__tr td:nth-child(6){
+background-color: rgb(47,193,140);
+padding: 0;
+height: 15px;
+border-top-right-radius: 5px;
+border-bottom-right-radius: 5px;
 }
 
 .div__address{
     display: flex;
     flex-direction: column;
-    height: 100px;
+    height: 200px;
     align-items: center;
     justify-content: space-evenly;
+}
+
+.div__address form{
+    display: flex;
+}
+
+.div__address label{
+    display: flex;
+    font-size: 10px;
+    color: black;
+    flex-direction: column;
+}
+
+.div__address label select{
+    width: 200px;
+    margin: 5px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.div__address label input{
+    width: 200px;
+    margin: 5px;
+    height: 10px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.div__address button{
+    display: flex;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 60px;
+    background-color: rgb(3,107,82) ;
+    color: aliceblue;
+    font-weight: 900;
+    margin-top: 30px;
 }
 

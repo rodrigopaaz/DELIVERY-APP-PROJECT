@@ -1,17 +1,18 @@
 .div__products {
-  margin-top: 150px;
+  margin-top: 300px;
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  height: 90vh;
   justify-content: center;
   width: 80vw;
+  padding: 100px;
 }
 
 .div__products button:nth-child(12){
   position: fixed;
   bottom: 0;
   right: 0;
+  margin: 20px;
   font-size: 20px;
   background-color: rgb(3,107,82);
   color: aliceblue;
