@@ -1,9 +1,11 @@
+const url = 'http://localhost:3001/images/skol_lata_350ml.jpg';
+
 const allProducts = [
   {
   id: 1,
   name: 'Skol Lata 250ml',
   price: 2.20,
-  urlImage: 'http://localhost:3001/images/skol_lata_350ml.jpg',
+  urlImage: url,
   },
   {
   id: 2,
@@ -13,20 +15,24 @@ const allProducts = [
   },
   ];
   
-  const product = { name: 'Heineken 600ml' };
+  const product = {
+    name: 'Skol Lata 1l',
+    price: '4.30',
+    urlImage: url,
+  };
   
   const createProduct = {
-  id: 3,
-  name: 'Heineken 700ml',
-  price: 10.50,
-  urlImage: 'http://localhost:3001/images/heineken_600ml.jpg',
+    id: 12,
+    name: 'Skol Lata 1l',
+    price: '4.30',
+    urlImage: url,
   };
   
   const idProductUp = {
-  id: 1,
-  name: 'Skol Lata 250ml',
-  price: 2.20,
-  urlImage: 'http://localhost:3001/images/skol_lata_350ml.jpg',
+    id: 1,
+    name: 'Skol 1l',
+    price: '4.30',
+    urlImage: url,
   };
 
   const idRemove = [

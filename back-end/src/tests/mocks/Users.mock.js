@@ -1,36 +1,39 @@
 const allUsers = [
   {
-  id: 1,
-  name: 'Delivery App Admin',
-  email: 'adm@deliveryapp.com',
-  password: 'a4c86edecc5aee06eff8fdeda69e0d04',
-  role: 'administrator',
-  // -- senha: md5('--adm2@21!!--')
+    id: 1,
+    name: 'Delivery App Admin',
+    email: 'adm@deliveryapp.com',
+    password: 'a4c86edecc5aee06eff8fdeda69e0d04',
+    role: 'administrator',
   },
   {
-  id: 2,
-  name: 'Fulana Pereira',
-  email: 'fulana@deliveryapp.com',
-  password: '3c28d2b0881bf46457a853e0b07531c6',
-  role: 'seller',
-  // -- senha: md5('fulana@123')
+    id: 2,
+    name: 'Fulana Pereira',
+    email: 'fulana@deliveryapp.com',
+    password: '3c28d2b0881bf46457a853e0b07531c6',
+    role: 'seller',
   },
-  ];
+]; 
   
   const createUser = {
   name: 'Nathália',
   email: 'na@deliveryapp.com',
-  password: 'a4c86edecc5aee06eff8fdeda69e0d04',
+  password: '--na2@21!!--',
   role: 'seller',
-  // -- senha: md5('--na2@21!!--')
   };
   
-  const users = { name: 'Fulana Pereira' };
+  const users = { 
+    name: 'Nathália',
+    email: 'na@deliveryapp.com',
+    password: '--na2@21!!--',
+    role: 'seller',
+  };
+
   const idUserUp = {
   id: 2,
   name: 'Fulana Fulana Pereira',
   email: 'fulana@deliveryapp.com',
-  password: '3c28d2b0881bf46457a853e0b07531c6',
+  password: 'fulana@123',
   role: 'seller',
   // -- senha: md5('fulana@123')
   };
