@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-// import Axios from 'axios';
-import { requestLogin /* requestData */ } from '../services/requests';
+import { requestLogin } from '../services/requests';
 import '../styles/login.css';
 import handleToken from '../utils/localStorage';
 import AppContext from '../context/Context';
