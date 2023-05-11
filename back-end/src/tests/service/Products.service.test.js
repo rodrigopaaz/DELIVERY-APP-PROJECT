@@ -29,15 +29,15 @@ expect(result.type).to.equal(404); // olhar mensagem de erro
 expect(result.message).to.equal('Not Found');
 });
 
-// it('retorna um erro caso não exista o produto', async function () {
-// // arrange
-// sinon.stub(productsModel, 'findByPk').resolves(undefined); 
-// // act
-// const result = await productsService.findByIdProdService(1); 
-// // assert
-// expect(result.type).to.equal('PRODUCT_NOT_FOUND'); // olhar mensagem de erro
-// expect(result.message).to.equal('Product not found');
-// });
+it('retorna um erro caso não exista o produto', async function () {
+// arrange
+sinon.stub(productsModel, 'findByPk').resolves(undefined); 
+// act
+const result = await productsService.findByIdProdService(1); 
+// assert
+expect(result.type).to.equal(404); // olhar mensagem de erro
+expect(result.message).to.equal('Not Found');
+});
 
 it('retorna um produto caso o ID exista', async function () {
 // arrange
