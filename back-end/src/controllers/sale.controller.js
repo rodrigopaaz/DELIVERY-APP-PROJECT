@@ -1,8 +1,8 @@
 const { 
-  createSaleService,
+   createSaleService,
    updateSaleService,
-   findByIdSaleService,
-   } = require('../services/sale.service');
+   findSaleService,
+  } = require('../services/sale.service');
 
 const createSaleController = async (req, res) => {
   try {
@@ -14,10 +14,10 @@ const createSaleController = async (req, res) => {
   }
 };
 
-const findByIdSaleController = async (req, res) => {
+const findSaleController = async (req, res) => {
   try {
     const { email } = req.body;
-    const result = await findByIdSaleService(email);
+    const result = await findSaleService(email);
     res.status(201).json(result);
   } catch (error) {
     res.status(409).json(error.message);
@@ -38,5 +38,5 @@ const updateSalesController = async (req, res) => {
 module.exports = {
   createSaleController,
   updateSalesController,
-  findByIdSaleController,
+  findSaleController,
 };

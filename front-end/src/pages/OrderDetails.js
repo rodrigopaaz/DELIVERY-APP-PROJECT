@@ -11,13 +11,13 @@ export default function OrderDetails() {
   const dateFormated = new Date(saleDate).toLocaleDateString('pt-BR');
   const history = useHistory();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (statusToSet) => {
     try {
       await updateSale(`/sales/${orderId}`, {
-        status: 'Entregue',
+        status: statusToSet,
       });
       setOrder({
-        id: orderId, saleDate, seller, status: 'Entregue',
+        id: orderId, saleDate, seller, status: statusToSet,
       });
       history.push(`/${role}/orders/`);
     } catch (error) {
@@ -25,7 +25,7 @@ export default function OrderDetails() {
     }
   };
 
-  const testId = 'customer_order_details__element';
+  const testId = `${role}_order_details__element`;
 
   return (
     <div className="div__order__details">
@@ -35,7 +35,9 @@ export default function OrderDetails() {
         <tbody>
           <tr>
             <td
-              data-testid="customer_order_details__element-order-details-label-order-id"
+              data-testid={
+                `${testId}-order-details-label-order-id`
+              }
             >
               { `PEDIDO
             ${orderId.toString().padStart(NUMBER_FOUR, '0')}` }
@@ -47,7 +49,9 @@ export default function OrderDetails() {
               ${seller}`}
             </td>
             <td
-              data-testid="customer_order_details__element-order-details-label-order-date"
+              data-testid={
+                `${testId}-order-details-label-order-date`
+              }
             >
               {dateFormated}
             </td>
@@ -74,33 +78,33 @@ export default function OrderDetails() {
             <tr key={ i + item.name }>
               <td
                 data-testid={
-                  `customer_order_details__element-order-table-item-number-${i}`
+                  `${testId}-order-table-item-number-${i}`
                 }
               >
                 {i + 1}
               </td>
               <td
-                data-testid={ `customer_order_details__element-order-table-name-${i}` }
+                data-testid={ `${testId}-order-table-name-${i}` }
               >
                 {item.name}
               </td>
               <td
                 data-testid={
-                  `customer_order_details__element-order-table-quantity-${i}`
+                  `${testId}-order-table-quantity-${i}`
                 }
               >
                 {item.quantity}
               </td>
               <td
                 data-testid={
-                  `customer_order_details__element-order-table-unit-price-${i}`
+                  `${testId}-order-table-unit-price-${i}`
                 }
               >
                 {item.price.replace(/\./, ',')}
               </td>
               <td
                 data-testid={
-                  `customer_order_details__element-order-table-sub-total-${i}`
+                  `${testId}-order-table-sub-total-${i}`
                 }
               >
                 {(Number(item.quantity) * Number(item.price)).toFixed(2).replace(/\./, ',')}
@@ -109,15 +113,39 @@ export default function OrderDetails() {
           ))}
         </tbody>
       </table>
-      <button
-        type="button"
-        data-testid="customer_order_details__button-delivery-check"
-        disabled={ status !== 'Em trânsito' }
-        onClick={ handleSubmit }
-      >
-        MARCAR COMO ENTREGUE
-      </button>
-      <p data-testid="customer_order_details__element-order-total-price">
+      {
+        role === 'customer'
+         && (
+           <button
+             type="button"
+             data-testid="customer_order_details__button-delivery-check"
+             disabled={ status !== 'Em trânsito' }
+             onClick={ () => handleSubmit('Entregue') }
+           >
+             MARCAR COMO ENTREGUE
+           </button>)
+      }
+      {
+        role === 'seller' && (
+          <div>
+            <button
+              type="button"
+              data-testid="seller_order_details__button-preparing-check"
+              onClick={ () => handleSubmit('Preparando') }
+            >
+              PREPARAR PEDIDO
+            </button>
+            <button
+              type="button"
+              data-testid="seller_order_details__button-dispatch-check"
+              onClick={ () => handleSubmit('Em trânsito') }
+            >
+              SAIU PARA ENTREGA
+            </button>
+          </div>
+        )
+      }
+      <p data-testid={ `${testId}-order-total-price` }>
         Total: R$
         {totalPrice}
       </p>

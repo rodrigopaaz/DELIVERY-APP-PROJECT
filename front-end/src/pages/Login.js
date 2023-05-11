@@ -32,7 +32,13 @@ export default function Login() {
         password: login.password,
       });
       handleToken(data);
-      history.push(`/${data.role}/products`);
+      if (data.role === 'admin') {
+        history.push('/admin/manage');
+      } else if (data.role === 'customer') {
+        history.push('/customer/products');
+      } else if (data.role === 'seller') {
+        history.push('/seller/orders');
+      }
     } catch (error) {
       setInvalidUser(true);
     }
@@ -41,7 +47,13 @@ export default function Login() {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
-      history.push('/customer/products');
+      if (user.role === 'admin') {
+        history.push('/admin/manage');
+      } else if (user.role === 'customer') {
+        history.push('/customer/products');
+      } else if (user.role === 'seller') {
+        history.push('/seller/orders');
+      }
     }
     validateInputs();
   // eslint-disable-next-line react-hooks/exhaustive-deps
