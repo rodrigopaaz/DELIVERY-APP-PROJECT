@@ -15,13 +15,6 @@
   width: 100%;
 }
 
-.App div:first-child{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 .App > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;

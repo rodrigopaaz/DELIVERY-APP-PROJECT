@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { updateSale } from '../services/requests';
 import Header from '../components/Header';
 import AppContext from '../context/Context';
+import '../styles/orders.css';
 
 export default function OrderDetails() {
   const { cart, totalPrice, order:
@@ -28,7 +29,7 @@ export default function OrderDetails() {
   const testId = 'customer_order_details__element';
 
   return (
-    <div>
+    <div className="div__order__details">
       <Header />
       <h3>Detalhe do Pedido</h3>
       <table>
@@ -59,14 +60,6 @@ export default function OrderDetails() {
           </tr>
         </tbody>
       </table>
-      <button
-        type="button"
-        data-testid="customer_order_details__button-delivery-check"
-        disabled={ status !== 'Em trânsito' }
-        onClick={ handleSubmit }
-      >
-        MARCAR COMO ENTREGUE
-      </button>
       <table>
         <thead>
           <tr>
@@ -117,6 +110,14 @@ export default function OrderDetails() {
           ))}
         </tbody>
       </table>
+      <button
+        type="button"
+        data-testid="customer_order_details__button-delivery-check"
+        disabled={ status !== 'Em trânsito' }
+        onClick={ handleSubmit }
+      >
+        MARCAR COMO ENTREGUE
+      </button>
       <p data-testid="customer_order_details__element-order-total-price">
         Total: R$
         {totalPrice}
