@@ -1,3 +1,10 @@
+.main__div__products{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
 .div__products {
   margin-top: 300px;
   align-items: center;

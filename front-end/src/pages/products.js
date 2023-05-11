@@ -40,7 +40,7 @@ function Products() {
   }, [cart]);
 
   return (
-    <div>
+    <div className="main__div__products">
       <Header />
       <div className="div__products">
         {products.length
