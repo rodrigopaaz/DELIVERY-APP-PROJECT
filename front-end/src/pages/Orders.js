@@ -24,7 +24,7 @@ export default function Orders() {
   }, [email]);
 
   return (
-    <div>
+    <div className="div__orders">
       <Header />
       {orders.length
                 && orders.map(({ id, status, saleDate, totalPrice }) => (

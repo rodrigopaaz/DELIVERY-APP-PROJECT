@@ -11,22 +11,26 @@ export default function CardOrders({ id, status, saleDate, totalPrice }) {
   };
   return (
     <button
+      className="cards__order__button"
       onClick={ redirectDetails }
       type="button"
     >
       <div>
         <p data-testid={ `customer_orders__element-order-id-${id}` }>
-          { `Pedido ${id.toString().padStart(four, '0')}`}
+          { `
+          Pedido ${id.toString().padStart(four, '0')}`}
         </p>
         <p data-testid={ `customer_orders__element-delivery-status-${id}` }>
           { status }
         </p>
-        <p data-testid={ `customer_orders__element-order-date-${id}` }>
-          { dateFormated }
-        </p>
-        <p data-testid={ `customer_orders__element-card-price-${id}` }>
-          { `R$ ${correctPrice} ` }
-        </p>
+        <div>
+          <p data-testid={ `customer_orders__element-order-date-${id}` }>
+            { dateFormated }
+          </p>
+          <p data-testid={ `customer_orders__element-card-price-${id}` }>
+            { `R$ ${correctPrice} ` }
+          </p>
+        </div>
       </div>
     </button>
   );

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { updateSale } from '../services/requests';
 import Header from '../components/Header';
 import AppContext from '../context/Context';
-import '../styles/orders.css';
+import '../styles/orderDetails.css';
 
 export default function OrderDetails() {
   const { cart, totalPrice, order:
