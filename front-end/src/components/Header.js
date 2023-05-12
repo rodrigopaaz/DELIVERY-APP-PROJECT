@@ -15,54 +15,50 @@ export default function Header() {
   }, [setEmail, setName, setRole]);
 
   const handleSeller = () => (
-    <>
-      <Link
-        to={`/${role}/orders`}
-        data-testid="customer_products__element-navbar-link-orders"
-      >
-        PEDIDOS
-      </Link>
-    </>
-  )
+    <Link
+      to={ `/${role}/orders` }
+      data-testid="customer_products__element-navbar-link-orders"
+    >
+      PEDIDOS
+    </Link>
+  );
 
   const handleCustomer = () => (
     <>
       <Link
-        to={`/${role}/products`}
+        to={ `/${role}/products` }
         data-testid="customer_products__element-navbar-link-products"
       >
         PRODUTOS
       </Link>
       <Link
-        to={`/${role}/orders`}
+        to={ `/${role}/orders` }
         data-testid="customer_products__element-navbar-link-orders"
       >
         MEUS PEDIDOS
       </Link>
     </>
-  )
+  );
 
   const handleAdmin = () => (
-    <>
-      <Link
-        to={`/${role}/manage`}
-        data-testid="customer_products__element-navbar-link-orders"
-      >
-        GERENCIAR USUÁRIO
-      </Link>
-    </>
+    <Link
+      to={ `/${role}/manage` }
+      data-testid="customer_products__element-navbar-link-orders"
+    >
+      GERENCIAR USUÁRIO
+    </Link>
   );
 
   const handleUser = () => {
     switch (role) {
-      case 'seller':
-        return handleSeller();
-      case 'customer':
-        return handleCustomer();
-      default:
-        return handleAdmin();
+    case 'seller':
+      return handleSeller();
+    case 'customer':
+      return handleCustomer();
+    default:
+      return handleAdmin();
     }
-  }
+  };
 
   return (
     <div className="div__header">
@@ -74,10 +70,10 @@ export default function Header() {
         <button
           type="button"
           data-testid="customer_products__element-navbar-link-logout"
-          onClick={() => {
+          onClick={ () => {
             localStorage.clear();
             history.push('/login');
-          }}
+          } }
         >
           Sair
         </button>
