@@ -37,19 +37,17 @@ export default function CardOrders({
         <p data-testid={ `${role}_orders__element-delivery-status-${id}` }>
           { status }
         </p>
-        <div>
-          <p data-testid={ `${role}_orders__element-order-date-${id}` }>
-            { dateFormated }
+        <p data-testid={ `${role}_orders__element-order-date-${id}` }>
+          { dateFormated }
+        </p>
+        <p data-testid={ `${role}_orders__element-card-price-${id}` }>
+          { `R$ ${correctPrice} ` }
+        </p>
+        { role === 'seller' && (
+          <p data-testid={ `${role}_orders__element-card-address-${id}` }>
+            { deliveryAddress }
           </p>
-          <p data-testid={ `${role}_orders__element-card-price-${id}` }>
-            { `R$ ${correctPrice} ` }
-          </p>
-          { role === 'seller' && (
-            <p data-testid={ `${role}_orders__element-card-address-${id}` }>
-              { deliveryAddress }
-            </p>
-          )}
-        </div>
+        )}
       </div>
     </button>
   );
