@@ -2,7 +2,7 @@
 
   .main__login {
     align-items: center;
-    background-image: url('../images/rockGlass.svg');
+    background-image: url('../images/background.jpg');
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -48,7 +48,7 @@
     color: black;
     font-size: 12px;
     height: 35px;
-    width: 226px;
+    width: 100%;
   }
 
   .form__login img {
@@ -62,8 +62,8 @@
 
   .main__login {
     align-items: center;
-    background-image: url('../images/rockGlass.svg');
-    background-size: contain;
+    background-image: url('../images/background.jpg');
+    background-size:cover;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -73,14 +73,14 @@
 
   .form__login {
     align-items: center;
-    background-color: rgba(82, 90, 124, 0.8);
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    height: 400px;
+    height: 450px;
     justify-content: space-evenly;
     padding: 50px;
-    width: 600px;
+    width: 450px;
   }
 
   .form__login form {
@@ -89,9 +89,9 @@
   }
 
   .form__login form input {
-    border: 0.5px solid #41197f;
+    border: 0.5px solid #000000;
     border-radius: 5px;
-    height: 40px;
+    height: 25px;
     margin-bottom: 10px;
     padding: 10px;
     width: 276px;
@@ -102,12 +102,30 @@
     border-radius: 5px;
     color: black;
     height: 40px;
-    width: 276px;
+    width: 100%;
+    transition-duration: 0.8s;
+  }
+
+  .form__login form button:hover {
+    background: #fc6436;
+    border-radius: 5px;
+    color: black;
+    height: 40px;
+    width: 100%;
   }
 
   .form__login img {
-    height: 150px;
-    width: 150px;
+    height: 250px;
+    width: 250px;
+  }
+
+  .form__login h5{
+    font-size: 20px;
+    margin-top: -15px;
+    margin-bottom: 10px;
+    font-weight: 900;
+    color: #fcc436;
+    text-shadow: 2px 2px 5px rgb(3, 3, 32);
   }
 
 }
