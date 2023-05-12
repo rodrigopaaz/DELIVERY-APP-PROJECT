@@ -1,10 +1,10 @@
 .div__orders {
-  align-items: center;
   display: flex;
   flex-wrap: wrap;
+  height: 100vh;
   justify-content: center;
-  margin-top: 150px;
   overflow: scroll;
+  width: 100vw;
 }
 
 .div__orders .cards__order__button {
