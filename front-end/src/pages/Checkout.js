@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestData, requestSale, setToken } from '../services/requests';
 import Header from '../components/Header';
 import AppContext from '../context/Context';
+import '../styles/checkout.css';
 
 export default function Checkout() {
   const [sellers, setSellers] = useState([]);
@@ -79,62 +81,62 @@ export default function Checkout() {
     <div className="div__checkout">
       <Header />
       <h3>Finalizar Pedido</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Sub-total</th>
-            <th>Remover Item</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cart && cart.map((item, i) => (
-            <tr key={ i + item.name } className="table__tr">
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-item-number-${i}`
-                }
-              >
-                {i + 1}
-              </td>
-              <td
-                data-testid={ `customer_checkout__element-order-table-name-${i}` }
-              >
-                {item.name}
-              </td>
-              <td
-                data-testid={ `customer_checkout__element-order-table-quantity-${i}` }
-              >
-                {item.quantity}
-              </td>
-              <td
-                data-testid={ `customer_checkout__element-order-table-unit-price-${i}` }
-              >
-                {item.price.replace(/\./, ',')}
-              </td>
-              <td
-                data-testid={ `customer_checkout__element-order-table-sub-total-${i}` }
-              >
-                {(Number(item.quantity) * Number(item.price)).toFixed(2).replace(/\./, ',')}
-              </td>
-              <td>
-                <button
-                  type="button"
-                  data-testid={ `customer_checkout__element-order-table-remove-${i}` }
-                  onClick={ () => removeItem(item.id) }
-                >
-                  Remover
-                </button>
-              </td>
+      <div className="div__table_content">
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Descrição</th>
+              <th>Quantidade</th>
+              <th>Valor Unitário</th>
+              <th>Sub-total</th>
+              <th>Remover Item</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-
+          </thead>
+          <tbody>
+            {cart && cart.map((item, i) => (
+              <tr key={ i + item.name } className="table__tr">
+                <td
+                  data-testid={
+                    `customer_checkout__element-order-table-item-number-${i}`
+                  }
+                >
+                  {i + 1}
+                </td>
+                <td
+                  data-testid={ `customer_checkout__element-order-table-name-${i}` }
+                >
+                  {item.name}
+                </td>
+                <td
+                  data-testid={ `customer_checkout__element-order-table-quantity-${i}` }
+                >
+                  {item.quantity}
+                </td>
+                <td
+                  data-testid={ `customer_checkout__element-order-table-unit-price-${i}` }
+                >
+                  {item.price.replace(/\./, ',')}
+                </td>
+                <td
+                  data-testid={ `customer_checkout__element-order-table-sub-total-${i}` }
+                >
+                  {(Number(item.quantity) * Number(item.price)).toFixed(2).replace(/\./, ',')}
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    data-testid={ `customer_checkout__element-order-table-remove-${i}` }
+                    onClick={ () => removeItem(item.id) }
+                  >
+                    Remover
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <p data-testid="customer_checkout__element-order-total-price">
         Total: R$
         { total.toFixed(2).replace(/\./, ',') }
