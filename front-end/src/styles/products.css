@@ -1,7 +1,7 @@
-.main__div__products{
+.main__div__products {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   width: 100%;
 }
@@ -11,16 +11,16 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 80vw;
   padding: 100px;
+  width: 80vw;
 }
 
-.div__products button:nth-child(12){
-  margin: 20px;
-  font-size: 20px;
-  background-color: rgb(3,107,82);
+.div__products button:nth-child( 12 ) {
+  background-color: rgb(3, 107, 82);
   color: aliceblue;
+  font-size: 20px;
   font-weight: 900;
-  width: 15%;
   height: 50px;
+  margin: 20px;
+  width: 15%;
 }

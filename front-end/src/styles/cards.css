@@ -11,9 +11,9 @@
   width: 15%;
 }
 
-.div__card p:nth-child(1){
-  height: 50px;
+.div__card p:nth-child( 1 ) {
   font-weight: 900;
+  height: 50px;
 }
 
 .div__card img {
@@ -21,20 +21,20 @@
   max-width: 130px;
 }
 
-.div__product__quantity{
+.div__product__quantity {
   display: flex;
 }
 
-.div__product__quantity input{
-  width: 80px;
+.div__product__quantity input {
   text-align: center;
+  width: 80px;
 }
 
-.div__product__quantity button{
-  font-weight: 900;
+.div__product__quantity button {
+  background-color: rgb(3, 107, 82);
   border: none;
-  width: 40px;
-  height: 40px;
   color: white;
-  background-color: rgb(3,107,82);
+  font-weight: 900;
+  height: 40px;
+  width: 40px;
 }

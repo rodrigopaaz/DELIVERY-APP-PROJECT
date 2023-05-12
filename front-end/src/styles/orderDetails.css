@@ -1,106 +1,102 @@
-.div__order__details{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    display: flex;
-    background-color: rgb(255, 255, 255);
-    height: 75vh;
-    width: 80%;
-    border: 1px solid rgb(224, 224, 224);
-    margin-top: 160px;
+.div__order__details {
+  align-items: center;
+  background-color: white;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  height: 75vh;
+  justify-content: flex-start;
+  margin-top: 160px;
+  width: 80%;
 }
 
-.div__order__details h3{
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin-top: 140px;
-    margin-left: 10%;
+.div__order__details h3 {
+  left: 0;
+  margin-left: 10%;
+  margin-top: 140px;
+  position: absolute;
+  top: 0;
 }
 
-.div__order__details table tbody{
-    width: 100%;
-    height: 100%;
+.div__order__details table tbody {
+  height: 100%;
+  width: 100%;
 }
 
-.div__order__details table:nth-child(3){
-    width: 100%;
-    align-self: first baseline;
+.div__order__details table:nth-child( 3 ) {
+  align-self: first baseline;
+  width: 100%;
 }
 
-.div__order__details table:nth-child(3) td{
-    table-layout: fixed;
-    height: 15px;
-    padding: 10px;
-    text-align: center;
-    vertical-align: top;
-    background-color: rgb(234,241,239);
-    text-align:start;
-    text-orientation: upright;
+.div__order__details table:nth-child( 3 ) td {
+  background-color: rgb(234, 241, 239);
+  height: 15px;
+  padding: 10px;
+  table-layout: fixed;
+  text-align: center;
+  text-orientation: upright;
+  vertical-align: top;
 }
 
-.div__order__details table:nth-child(4) td{
-    table-layout: fixed;
-    height: 15px;
-    padding: 10px;
-    text-align: center;
-    vertical-align: top;
-    background-color: rgb(234,241,239);
-    text-align:start;
-    text-orientation: upright;
+.div__order__details table:nth-child( 4 ) td {
+  background-color: rgb(234, 241, 239);
+  height: 15px;
+  padding: 10px;
+  table-layout: fixed;
+  text-align: center;
+  text-orientation: upright;
+  vertical-align: top;
 }
 
-.div__order__details table:nth-child(4){
-    width: 100%;
-    align-self: first baseline;
+.div__order__details table:nth-child( 4 ) {
+  align-self: first baseline;
+  width: 100%;
 }
 
-.div__order__details table:nth-child(5) td{
-    table-layout: fixed;
-    height: 15px;
-    padding: 10px;
-    text-align: center;
-    vertical-align: top;
-    background-color: rgb(234,241,239);
-    text-align:start;
-    text-orientation: upright;
+.div__order__details table:nth-child( 5 ) td {
+  background-color: rgb(234, 241, 239);
+  height: 15px;
+  padding: 10px;
+  table-layout: fixed;
+  text-align: center;
+  text-orientation: upright;
+  vertical-align: top;
 }
 
-.div__order__details table:nth-child(4) td:first-child{
-    background-color: rgb(47,193,140);
-    text-align: center;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    }    
-
-.div__order__details p:nth-child(6){
-    display: flex;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin: 20px;
-    border-radius: 5px;
-    justify-content: center;
-    align-items: center;
-    width: 300px;
-    height: 60px;
-    background-color: rgb(3,107,82) ;
-    color: aliceblue;
-    font-weight: 900;
-    margin-top: 30px;
+.div__order__details table:nth-child( 4 ) td:first-child {
+  background-color: rgb(47, 193, 140);
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  text-align: center;
 }
 
-.div__order__details button:nth-child(5){
-    display: flex;
-    margin: 20px;
-    border-radius: 5px;
-    justify-content: center;
-    align-items: center;
-    width: 300px;
-    height: 60px;
-    background-color: rgb(3,107,82) ;
-    color: aliceblue;
-    font-weight: 900;
-    margin-top: 30px;
+.div__order__details p:nth-child( 6 ) {
+  align-items: center;
+  background-color: rgb(3, 107, 82);
+  border-radius: 5px;
+  bottom: 0;
+  color: aliceblue;
+  display: flex;
+  font-weight: 900;
+  height: 60px;
+  justify-content: center;
+  margin: 20px;
+  margin-top: 30px;
+  position: absolute;
+  right: 0;
+  width: 300px;
+}
+
+.div__order__details button:nth-child( 5 ) {
+  align-items: center;
+  background-color: rgb(3, 107, 82);
+  border-radius: 5px;
+  color: aliceblue;
+  display: flex;
+  font-weight: 900;
+  height: 60px;
+  justify-content: center;
+  margin: 20px;
+  margin-top: 30px;
+  width: 300px;
 }
