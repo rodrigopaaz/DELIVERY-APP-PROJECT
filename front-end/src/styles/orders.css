@@ -1,0 +1,65 @@
+.div__orders {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 150px;
+  overflow: scroll;
+}
+
+.div__orders .cards__order__button {
+  align-items: center;
+  background-color: azure;
+  border: 1px solid rgb(207, 207, 207);
+  box-shadow: 1px 1px 5px black;
+  display: flex;
+  height: 100px;
+  margin: 15px;
+  width: 45%;
+}
+
+.div__orders button div {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.div__orders button div p {
+  align-items: center;
+  background-color: rgb(204, 204, 204);
+  display: flex;
+  height: 95px;
+  justify-content: center;
+}
+
+.div__orders button p:nth-child( 1 ) {
+  background-color: white;
+  height: 95px;
+  width: 25%;
+}
+
+.div__orders button p:nth-child( 2 ) {
+  background-color: rgb(255, 187, 0);
+  height: 95px;
+  width: 35%;
+}
+
+.div__orders button div div {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+}
+
+.div__orders button div p:nth-child( 4 ) {
+  background-color: rgb(204, 204, 204);
+  height: 45px;
+  width: 100%;
+}
+
+.div__orders button div p:nth-child( 3 ) {
+  background-color: rgb(204, 204, 204);
+  display: flex;
+  flex-direction: column;
+  height: 45px;
+  width: 100%;
+}

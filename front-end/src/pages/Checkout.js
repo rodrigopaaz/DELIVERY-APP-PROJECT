@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { requestData, requestSale, setToken } from '../services/requests';
 import Header from '../components/Header';
 import AppContext from '../context/Context';
+import '../styles/checkout.css';
 
 export default function Checkout() {
   const [sellers, setSellers] = useState([]);
@@ -79,7 +80,6 @@ export default function Checkout() {
     <div className="div__checkout">
       <Header />
       <h3>Finalizar Pedido</h3>
-
       <table>
         <thead>
           <tr>
@@ -134,7 +134,6 @@ export default function Checkout() {
           ))}
         </tbody>
       </table>
-
       <p data-testid="customer_checkout__element-order-total-price">
         Total: R$
         { total.toFixed(2).replace(/\./, ',') }

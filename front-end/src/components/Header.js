@@ -14,21 +14,56 @@ export default function Header() {
     setRole(user.role);
   }, [setEmail, setName, setRole]);
 
+  const handleSeller = () => (
+    <Link
+      to={ `/${role}/orders` }
+      data-testid="customer_products__element-navbar-link-orders"
+    >
+      PEDIDOS
+    </Link>
+  );
+
+  const handleCustomer = () => (
+    <>
+      <Link
+        to={ `/${role}/products` }
+        data-testid="customer_products__element-navbar-link-products"
+      >
+        PRODUTOS
+      </Link>
+      <Link
+        to={ `/${role}/orders` }
+        data-testid="customer_products__element-navbar-link-orders"
+      >
+        MEUS PEDIDOS
+      </Link>
+    </>
+  );
+
+  const handleAdmin = () => (
+    <Link
+      to={ `/${role}/manage` }
+      data-testid="customer_products__element-navbar-link-orders"
+    >
+      GERENCIAR USUÁRIO
+    </Link>
+  );
+
+  const handleUser = () => {
+    switch (role) {
+    case 'seller':
+      return handleSeller();
+    case 'customer':
+      return handleCustomer();
+    default:
+      return handleAdmin();
+    }
+  };
+
   return (
     <div className="div__header">
       <nav className="nav__header">
-        <Link
-          to={ `/${role}/products` }
-          data-testid="customer_products__element-navbar-link-products"
-        >
-          PRODUTOS
-        </Link>
-        <Link
-          to={ `/${role}/orders` }
-          data-testid="customer_products__element-navbar-link-orders"
-        >
-          MEUS PEDIDOS
-        </Link>
+        {handleUser()}
         <p data-testid="customer_products__element-navbar-user-full-name">
           {name}
         </p>

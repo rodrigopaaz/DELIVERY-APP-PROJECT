@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import { requestOrders } from '../services/requests';
 import CardOrders from '../components/CardsOrders';
 import AppContext from '../context/Context';
+import '../styles/orders.css';
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
@@ -11,7 +12,6 @@ export default function Orders() {
   const handleOrders = async () => {
     try {
       const myOrders = await requestOrders('/sales/orders', { email });
-      console.log('MEUS PEDIDOS', myOrders);
       setOrders(myOrders);
     } catch (error) {
       setOrders([]);
@@ -27,13 +27,14 @@ export default function Orders() {
     <div className="div__orders">
       <Header />
       {orders.length
-                && orders.map(({ id, status, saleDate, totalPrice }) => (
+                && orders.map(({ id, status, saleDate, totalPrice, deliveryAddress }) => (
                   <CardOrders
                     key={ id }
                     id={ id }
                     status={ status }
                     saleDate={ saleDate }
                     totalPrice={ totalPrice }
+                    deliveryAddress={ deliveryAddress }
                   />
                 ))}
     </div>

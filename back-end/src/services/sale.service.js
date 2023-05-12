@@ -3,8 +3,8 @@ const { users } = require('../database/models');
 const { sales_products: SalesProduct } = require('../database/models');
 
 const findUserByEmail = async (email) => {
-  const { id: userId } = await users.findOne({ where: { email } });
-  return userId;
+  const user = await users.findOne({ where: { email } });
+  return user;
 };
 
 const createSaleService = async (sale) => {
@@ -27,26 +27,43 @@ const createSaleService = async (sale) => {
   } catch (error) { throw new Error(error.message); }
 };
 
-const findByIdSaleService = async (email) => {
+const findSaleService = async (email) => {
   try {
-    const userId = await findUserByEmail(email);
-    const data = await sales.findAll({ where: { userId } });
+    const { id, role } = await findUserByEmail(email);
+    if (role === 'customer') {
+      const compras = await sales.findAll({ where: { userId: id } });
+      return compras;
+    }
+    if (role === 'seller') {
+      const vendas = await sales.findAll({ where: { sellerId: id } });
+      return vendas;
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const findById = async (id) => {
+  try {
+    const data = await sales.findByPk(id);
+    console.log('data', data);
     return data;
   } catch (error) {
     throw new Error(error);
   }
 };
 
-// OBSERVAÇÃO: ARRAY DE PRODUCTS NÃO ESTÁ SENDO ATUALIZADO NESSA FUNÇÃO.
-
 const updateSaleService = async (id, info) => {
   try {
+    console.log('id', id);
     const { status } = info;
-    const exist = await findByIdSaleService(id);
+    const exist = await findById(id);
+    console.log('EXISTE', exist);
     if (!exist) throw new Error('Not Found');
     const data = await sales.update({
       status,
     }, { where: { id } });
+    console.log('data', data);
     return data;
   } catch (error) {
     throw new Error(error.message);
@@ -55,6 +72,6 @@ const updateSaleService = async (id, info) => {
 
 module.exports = {
   createSaleService,
-  findByIdSaleService,
+  findSaleService,
   updateSaleService,
 };
