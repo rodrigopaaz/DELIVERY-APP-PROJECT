@@ -1,8 +1,26 @@
+.main__div__products{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
 .div__products {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  height: 90vh;
   justify-content: center;
   width: 80vw;
+  padding: 100px;
+}
+
+.div__products button:nth-child(12){
+  margin: 20px;
+  font-size: 20px;
+  background-color: rgb(3,107,82);
+  color: aliceblue;
+  font-weight: 900;
+  width: 15%;
+  height: 50px;
 }
