@@ -1,10 +1,10 @@
 .div__checkout {
-
-  /* align-items: center; */
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100vw;
+
+  /* width: 80%; */
 }
 
 .div__checkout h3:nth-child( 2 ) {
