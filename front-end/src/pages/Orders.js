@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import { requestOrders } from '../services/requests';
 import CardOrders from '../components/CardsOrders';
@@ -7,7 +8,8 @@ import '../styles/orders.css';
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
-  const { email } = useContext(AppContext);
+  const { role, email } = useContext(AppContext);
+  const history = useHistory();
 
   const handleOrders = async () => {
     try {
@@ -20,23 +22,27 @@ export default function Orders() {
 
   useEffect(() => {
     handleOrders();
+    if (role === 'customer') {
+      history.push('/customer/orders');
+    } else if (role === 'seller') {
+      history.push('/seller/orders');
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email]);
+  }, [email, role]);
 
   return (
     <div className="div__orders">
       <Header />
-      {orders.length
-                && orders.map(({ id, status, saleDate, totalPrice, deliveryAddress }) => (
-                  <CardOrders
-                    key={ id }
-                    id={ id }
-                    status={ status }
-                    saleDate={ saleDate }
-                    totalPrice={ totalPrice }
-                    deliveryAddress={ deliveryAddress }
-                  />
-                ))}
+      { orders.length && orders.map((item) => (
+        <CardOrders
+          key={ item.id }
+          id={ item.id }
+          status={ item.status }
+          saleDate={ item.saleDate }
+          totalPrice={ item.totalPrice }
+          deliveryAddress={ item.deliveryAddress }
+          deliveryNumber={ item.deliveryNumber }
+        />))}
     </div>
   );
 }

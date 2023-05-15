@@ -4,7 +4,7 @@ import AppContext from '../context/Context';
 import '../styles/header.css';
 
 export default function Header() {
-  const { name, setName, setEmail, role, setRole } = useContext(AppContext);
+  const { name, setName, setEmail, role, setRole, setCart } = useContext(AppContext);
   const history = useHistory();
 
   useEffect(() => {
@@ -64,19 +64,27 @@ export default function Header() {
     <div className="div__header">
       <nav className="nav__header">
         {handleUser()}
-        <p data-testid="customer_products__element-navbar-user-full-name">
-          {name}
-        </p>
-        <button
-          type="button"
-          data-testid="customer_products__element-navbar-link-logout"
-          onClick={ () => {
-            localStorage.clear();
-            history.push('/login');
-          } }
-        >
-          Sair
-        </button>
+        <div className="container__header">
+          <p
+            className="name__header"
+            data-testid="customer_products__element-navbar-user-full-name"
+          >
+            {name}
+          </p>
+          <button
+            type="button"
+            className="button__header"
+            data-testid="customer_products__element-navbar-link-logout"
+            onClick={ () => {
+              localStorage.clear();
+              history.push('/login');
+              setCart([]);
+            } }
+          >
+            Sair
+          </button>
+
+        </div>
       </nav>
     </div>
   );

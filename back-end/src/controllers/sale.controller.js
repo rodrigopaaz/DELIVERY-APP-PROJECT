@@ -2,6 +2,7 @@ const {
    createSaleService,
    updateSaleService,
    findSaleService,
+   findByIdSaleService,
   } = require('../services/sale.service');
 
 const createSaleController = async (req, res) => {
@@ -9,6 +10,16 @@ const createSaleController = async (req, res) => {
     const sale = req.body;
     const result = await createSaleService(sale);
     res.status(201).json(result);
+  } catch (error) {
+    res.status(409).json(error.message);
+  }
+};
+
+const findByIdSaleController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await findByIdSaleService(id);
+    res.status(200).json(result);
   } catch (error) {
     res.status(409).json(error.message);
   }
@@ -39,4 +50,5 @@ module.exports = {
   createSaleController,
   updateSalesController,
   findSaleController,
+  findByIdSaleController,
 };

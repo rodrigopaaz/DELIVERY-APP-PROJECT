@@ -1,20 +1,20 @@
-'use strict';
-
+/* eslint-disable camelcase */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  // eslint-disable-next-line max-lines-per-function
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('sales', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       user_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model:'users',
-          key:'id',
+          model: 'users',
+          key: 'id',
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
@@ -23,14 +23,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model:'users',
-          key:'id',
+          model: 'users',
+          key: 'id',
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       },
       total_price: {
-        type: Sequelize.DECIMAL(9,2),
+        type: Sequelize.DECIMAL(9, 2),
         allowNull: false,
       },
       delivery_address: {
@@ -39,7 +39,7 @@ module.exports = {
       },
       delivery_number: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       sale_date: {
         allowNull: false,
@@ -48,12 +48,12 @@ module.exports = {
       },
       status: {
         allowNull: false,
-        type: Sequelize.STRING
-      }
+        type: Sequelize.STRING,
+      },
     });
   },
 
-  async down (queryInterface, _Sequelize) {
+  async down(queryInterface, _Sequelize) {
     await queryInterface.dropTable('sales');
-  }
+  },
 };

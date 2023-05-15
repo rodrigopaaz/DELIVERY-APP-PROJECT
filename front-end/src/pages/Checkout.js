@@ -6,10 +6,10 @@ import AppContext from '../context/Context';
 import '../styles/checkout.css';
 
 export default function Checkout() {
-  const [sellers, setSellers] = useState([]);
   const [total, setTotal] = useState(0);
   const [info, setInfo] = useState({ seller: '2', address: '', number: '' });
-  const { cart, setCart, email, setOrder, role, setRole } = useContext(AppContext);
+  const { cart, setCart, email, role, setRole, sellers,
+    setSellers } = useContext(AppContext);
   const history = useHistory();
 
   const getSellers = async () => {
@@ -25,12 +25,27 @@ export default function Checkout() {
     localStorage.setItem('cart', JSON.stringify(deleteProduct));
   };
 
+  // const removeItem = (id) => {
+  //   const item = JSON.parse(localStorage.getItem('cart'));
+  //   const product = item.find((e) => e.id === id);
+  //   const deleteProduct = item.filter((e) => e.id !== id);
+  //   if (product.quantity > 1) {
+  //     const deleteItem = [...deleteProduct, { id,
+  //       name: product.name,
+  //       price: product.price,
+  //       quantity: product.quantity -= 1 }].sort((a, b) => a.id - b.id);
+  //     setCart(deleteItem);
+  //     localStorage.setItem('cart', JSON.stringify(deleteItem));
+  //   } else {
+  //     setCart(deleteProduct);
+  //     localStorage.setItem('cart', JSON.stringify(deleteProduct));
+  //   }
+  // };
+
   const sumTotalCart = () => {
     const pricesToNumber = cart.map((elem) => ({ ...elem, price: Number(elem.price) }));
     const totalCart = pricesToNumber
       .reduce((acc, product) => acc + (product.price * product.quantity), 0);
-    // const totalCartFixed = totalCart.toFixed(2);
-    // setTotal(totalCartFixed.replace('.', ','));
     setTotal(totalCart);
   };
 
@@ -44,7 +59,7 @@ export default function Checkout() {
 
   const handleCheckout = async () => {
     try {
-      const { id, saleDate, status, sellerId, totalPrice } = await requestSale('/sales', {
+      const { id } = await requestSale('/sales', {
         address: info.address,
         number: info.number,
         email,
@@ -52,10 +67,7 @@ export default function Checkout() {
         total,
         products: cart,
       });
-      const { name } = sellers.find((seller) => seller.id === Number(sellerId));
-      setOrder({
-        id, saleDate, seller: name, status, totalPrice,
-      });
+      setCart([]);
       history.push(`/${role}/orders/${id}`);
     } catch (error) {
       console.error(error.message);
@@ -188,6 +200,7 @@ export default function Checkout() {
 
         <button
           type="button"
+          disabled={ !cart.length }
           data-testid="customer_checkout__button-submit-order"
           onClick={ handleCheckout }
         >

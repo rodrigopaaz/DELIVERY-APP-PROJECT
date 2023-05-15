@@ -8,7 +8,8 @@ import '../styles/products.css';
 
 function Products() {
   const [products, setProducts] = useState([]);
-  const { totalPrice, setTotalPrice, cart, role } = useContext(AppContext);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const { cart, role } = useContext(AppContext);
   const history = useHistory();
 
   const handleProducts = async () => {
@@ -55,6 +56,7 @@ function Products() {
             />
           ))}
         <button
+          className="btn__products"
           disabled={ !cart.length }
           type="button"
           data-testid="customer_products__button-cart"

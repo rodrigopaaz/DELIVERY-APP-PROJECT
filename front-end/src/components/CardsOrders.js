@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import AppContext from '../context/Context';
 
 export default function CardOrders({
-  id, status, saleDate, totalPrice, deliveryAddress }) {
+  id, status, saleDate, totalPrice, deliveryAddress, deliveryNumber }) {
   const history = useHistory();
   const { role } = useContext(AppContext);
   const dateFormated = new Date(saleDate).toLocaleDateString('pt-BR');
@@ -45,7 +45,7 @@ export default function CardOrders({
         </p>
         { role === 'seller' && (
           <p data-testid={ `${role}_orders__element-card-address-${id}` }>
-            { deliveryAddress }
+            { `${deliveryAddress}, ${deliveryNumber}`}
           </p>
         )}
       </div>

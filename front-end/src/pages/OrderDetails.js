@@ -1,30 +1,55 @@
-import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import { updateSale } from '../services/requests';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import { updateSale, requestData } from '../services/requests';
 import Header from '../components/Header';
 import AppContext from '../context/Context';
 import '../styles/orderDetails.css';
 
 export default function OrderDetails() {
-  const { cart, totalPrice, order:
-    { id: orderId, saleDate, seller, status }, setOrder, role } = useContext(AppContext);
-  const NUMBER_FOUR = 4;
-  const dateFormated = new Date(saleDate).toLocaleDateString('pt-BR');
-  const history = useHistory();
+  const [sale, setSale] = useState({
+    id: 0,
+    products: [],
+    saleDate: '',
+    seller: {},
+    status: '',
+    totalPrice: '',
+  });
 
-  const handleSubmit = async (statusToSet) => {
+  const { role } = useContext(AppContext);
+  const history = useHistory();
+  const { id: idParams } = useParams();
+
+  const NUMBER_FOUR = 4;
+  const dateFormated = new Date(sale.saleDate).toLocaleDateString('pt-BR');
+
+  const requestSale = async () => {
+    const saleById = await requestData(`/sales/${idParams}`);
+    setSale(saleById);
+  };
+
+  const handleStatus = async (statusToSet) => {
     try {
-      await updateSale(`/sales/${orderId}`, {
+      await updateSale(`/sales/${idParams}`, {
         status: statusToSet,
       });
-      setOrder({
-        id: orderId, saleDate, seller, status: statusToSet,
-      });
-      history.push(`/${role}/orders/`);
+      requestSale();
+      if (role === 'seller') {
+        history.push(`/${role}/orders/`);
+      }
     } catch (error) {
       console.error(error.message);
     }
   };
+
+  useEffect(() => {
+    requestSale();
+    if (role === 'customer') {
+      history.push(`/customer/orders/${idParams}`);
+    } else if (role === 'seller') {
+      history.push(`/seller/orders/${idParams}`);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [role]);
 
   const testId = `${role}_order_details__element`;
 
@@ -41,13 +66,13 @@ export default function OrderDetails() {
               }
             >
               { `PEDIDO
-            ${orderId.toString().padStart(NUMBER_FOUR, '0')}` }
+            ${idParams.toString().padStart(NUMBER_FOUR, '0')}` }
             </td>
             <td
               data-testid={ `${testId}-order-details-label-seller-name` }
             >
               { `P. Vend:
-              ${seller}`}
+              ${sale.seller.name}`}
             </td>
             <td
               data-testid={
@@ -57,9 +82,14 @@ export default function OrderDetails() {
               {dateFormated}
             </td>
             <td
-              data-testid={ `${testId}-order-details-label-delivery-status${orderId}` }
+              data-testid={
+                `${testId}-order-details-label-delivery-status`
+                // role === 'customer'
+                //   ? 'customer_order_details__element-order-details-label-delivery-status'
+                //   : 'seller_order_details__element-order-details-label-delivery-status'
+              }
             >
-              {status}
+              {sale.status}
             </td>
           </tr>
         </tbody>
@@ -75,8 +105,9 @@ export default function OrderDetails() {
           </tr>
         </thead>
         <tbody>
-          {cart && cart.map((item, i) => (
-            <tr key={ i + item.name }>
+          {sale.products
+          && sale.products.map(({ name, sales_products: sales, price }, i) => (
+            <tr key={ i + name }>
               <td
                 data-testid={
                   `${testId}-order-table-item-number-${i}`
@@ -87,68 +118,72 @@ export default function OrderDetails() {
               <td
                 data-testid={ `${testId}-order-table-name-${i}` }
               >
-                {item.name}
+                {name}
               </td>
               <td
                 data-testid={
                   `${testId}-order-table-quantity-${i}`
                 }
               >
-                {item.quantity}
+                {sales.quantity}
               </td>
               <td
                 data-testid={
                   `${testId}-order-table-unit-price-${i}`
                 }
               >
-                {item.price.replace(/\./, ',')}
+                {price.replace(/\./, ',')}
               </td>
               <td
                 data-testid={
                   `${testId}-order-table-sub-total-${i}`
                 }
               >
-                {(Number(item.quantity) * Number(item.price)).toFixed(2).replace(/\./, ',')}
+                {(Number(sales.quantity) * Number(price)).toFixed(2).replace(/\./, ',')}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      {
-        role === 'customer'
+      <div className="btn__order__details">
+        {
+          role === 'customer'
          && (
            <button
              type="button"
              data-testid="customer_order_details__button-delivery-check"
-             disabled={ status !== 'Em trânsito' }
-             onClick={ () => handleSubmit('Entregue') }
+             disabled={ sale.status !== 'Em Trânsito' }
+             onClick={ () => handleStatus('Entregue') }
            >
              MARCAR COMO ENTREGUE
            </button>)
-      }
-      {
-        role === 'seller' && (
-          <div>
-            <button
-              type="button"
-              data-testid="seller_order_details__button-preparing-check"
-              onClick={ () => handleSubmit('Preparando') }
-            >
-              PREPARAR PEDIDO
-            </button>
-            <button
-              type="button"
-              data-testid="seller_order_details__button-dispatch-check"
-              onClick={ () => handleSubmit('Em trânsito') }
-            >
-              SAIU PARA ENTREGA
-            </button>
-          </div>
-        )
-      }
+        }
+        {
+          role === 'seller' && (
+            <div>
+              <button
+                type="button"
+                disabled={ sale.status !== 'Pendente' }
+                data-testid="seller_order_details__button-preparing-check"
+                onClick={ () => handleStatus('Preparando') }
+              >
+                PREPARAR PEDIDO
+              </button>
+              <button
+                type="button"
+                disabled={ sale.status !== 'Preparando' }
+                data-testid="seller_order_details__button-dispatch-check"
+                onClick={ () => handleStatus('Em Trânsito') }
+              >
+                SAIU PARA ENTREGA
+              </button>
+            </div>
+          )
+        }
+      </div>
       <p data-testid={ `${testId}-order-total-price` }>
         Total: R$
-        {totalPrice}
+        {sale.totalPrice.replace(/\./, ',')}
       </p>
     </div>
   );

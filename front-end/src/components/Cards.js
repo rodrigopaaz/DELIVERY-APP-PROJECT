@@ -72,11 +72,12 @@ export default function Card({ id, name, price, urlImage, quantity }) {
       <div className="div__product__quantity">
         <button
           type="button"
-          name="add"
-          data-testid={ `customer_products__button-card-add-item-${id}` }
-          onClick={ () => handleIncrease({ id, name, price, quantity }) }
+          name="rm"
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
+          onClick={ () => handleDecrease({ id, name, price, quantity }) }
+          disabled={ quantidade <= 0 }
         >
-          +
+          -
         </button>
         <input
           data-testid={ `customer_products__input-card-quantity-${id}` }
@@ -87,15 +88,13 @@ export default function Card({ id, name, price, urlImage, quantity }) {
           placeholder="0"
           min="0"
         />
-
         <button
           type="button"
-          name="rm"
-          data-testid={ `customer_products__button-card-rm-item-${id}` }
-          onClick={ () => handleDecrease({ id, name, price, quantity }) }
-          disabled={ quantidade <= 0 }
+          name="add"
+          data-testid={ `customer_products__button-card-add-item-${id}` }
+          onClick={ () => handleIncrease({ id, name, price, quantity }) }
         >
-          -
+          +
         </button>
       </div>
     </div>

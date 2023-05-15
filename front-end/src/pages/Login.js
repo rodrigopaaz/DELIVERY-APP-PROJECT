@@ -57,7 +57,7 @@ export default function Login() {
     }
     validateInputs();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [login], [history]);
+  }, [login, history]);
 
   return (
     <div className="main__login">
