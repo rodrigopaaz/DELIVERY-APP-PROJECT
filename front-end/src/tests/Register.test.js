@@ -29,6 +29,45 @@ describe('Testes da tela de Register', () => {
     expect(button1).toBeDisabled();
     expect(button1).toBeInTheDocument();
   });
+
+  test('Testa se ao digitar um nome inválido, aparece uma mensagem de erro', () => {
+    const button = screen.getByRole('button', { name: 'Cadastrar' });
+    const inputName = screen.getByText('Nome');
+    const inputEmail = screen.getByText('Email');
+    const inputPassword = screen.getByText('Senha');
+
+    userEvent.type(inputName, 'Nath');
+    userEvent.type(inputEmail, 'teste@testes.com');
+    userEvent.type(inputPassword, 'testeteste');
+
+    expect(button).toBeDisabled();
+  });
+
+  test('Testa se ao digitar um email inválido, aparece uma mensagem de erro', () => {
+    const button = screen.getByRole('button', { name: 'Cadastrar' });
+    const inputName = screen.getByText('Nome');
+    const inputEmail = screen.getByText('Email');
+    const inputPassword = screen.getByText('Senha');
+
+    userEvent.type(inputName, 'Nathália Resende');
+    userEvent.type(inputEmail, 'testeteste.com');
+    userEvent.type(inputPassword, 'testeteste');
+
+    expect(button).toBeDisabled();
+  });
+
+  test('Testa se ao digitar um password inválido, aparece uma mensagem de erro', () => {
+    const button = screen.getByRole('button', { name: 'Cadastrar' });
+    const inputName = screen.getByText('Nome');
+    const inputEmail = screen.getByText('Email');
+    const inputPassword = screen.getByText('Senha');
+
+    userEvent.type(inputName, 'Nathália Andrade');
+    userEvent.type(inputEmail, 'teste@teste.com');
+    userEvent.type(inputPassword, 'tes');
+
+    expect(button).toBeDisabled();
+  });
 });
 
 describe('Testes do cadastro', () => {

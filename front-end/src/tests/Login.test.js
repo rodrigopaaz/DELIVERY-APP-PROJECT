@@ -7,6 +7,7 @@ import renderWithRouter from '../renderWithRouter';
 
 describe('Testes da tela de login', () => {
   beforeEach(() => renderWithRouter(<Login />));
+
   afterEach(cleanup);
 
   test('Testa se há dois inputs', () => {
@@ -37,6 +38,17 @@ describe('Testes da tela de login', () => {
 
     userEvent.type(inputEmail, 'testeteste.com');
     userEvent.type(inputPassword, 'testeteste');
+
+    expect(button).toBeDisabled();
+  });
+
+  test('Testa se ao digitar um password inválido, aparece uma mensagem de erro', () => {
+    const button = screen.getByRole('button', { name: 'Login' });
+    const inputEmail = screen.getAllByPlaceholderText('Email');
+    const inputPassword = screen.getAllByPlaceholderText('Password');
+
+    userEvent.type(inputEmail, 'teste@teste.com');
+    userEvent.type(inputPassword, 'test');
 
     expect(button).toBeDisabled();
   });

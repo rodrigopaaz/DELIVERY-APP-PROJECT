@@ -16,10 +16,7 @@ const allUsers = [
 ]; 
   
   const createUser = {
-  name: 'Nathália',
-  email: 'na@deliveryapp.com',
-  password: '--na2@21!!--',
-  role: 'seller',
+    token: 'fakeToken',
   };
   
   const users = { 
