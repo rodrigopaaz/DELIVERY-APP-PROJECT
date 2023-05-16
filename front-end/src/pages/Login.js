@@ -32,7 +32,7 @@ export default function Login() {
         password: login.password,
       });
       handleToken(data);
-      if (data.role === 'admin') {
+      if (data.role === 'administrator') {
         history.push('/admin/manage');
       } else if (data.role === 'customer') {
         history.push('/customer/products');
@@ -47,7 +47,7 @@ export default function Login() {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
-      if (user.role === 'admin') {
+      if (user.role === 'administrator') {
         history.push('/admin/manage');
       } else if (user.role === 'customer') {
         history.push('/customer/products');

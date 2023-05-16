@@ -8,6 +8,7 @@ export default function AppProvider({ children }) {
   const [role, setRole] = useState('');
   const [cart, setCart] = useState([]);
   const [sellers, setSellers] = useState([]);
+  const [users, setUsers] = useState([]);
 
   const values = useMemo(() => ({
     name,
@@ -22,6 +23,8 @@ export default function AppProvider({ children }) {
     setCart,
     sellers,
     setSellers,
+    users,
+    setUsers,
   }), [
     name,
     setName,
@@ -35,6 +38,8 @@ export default function AppProvider({ children }) {
     setCart,
     sellers,
     setSellers,
+    users,
+    setUsers,
   ]);
 
   return (
