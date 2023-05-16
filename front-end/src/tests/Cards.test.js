@@ -34,7 +34,7 @@ describe('Testes da página de cards', () => {
 
   test('Testa se há um botão de Incrementar na tela', () => {
     const button = screen.getByRole('button', { name: '+' });
-    const input = screen.getByTestId('customer_products__input-card-quantity-1');
+    // const input = screen.getByTestId('customer_products__input-card-quantity-1');
 
     expect(button).toBeInTheDocument();
     userEvent.click(button);
@@ -44,7 +44,7 @@ describe('Testes da página de cards', () => {
 
   test('Testa se há um botão de Decrementar na tela', () => {
     const button = screen.getByRole('button', { name: '-' });
-    const input = screen.getByTestId('customer_products__input-card-quantity-1');
+    // const input = screen.getByTestId('customer_products__input-card-quantity-1');
 
     expect(button).toBeInTheDocument();
     userEvent.click(button);
