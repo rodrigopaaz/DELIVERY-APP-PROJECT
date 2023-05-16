@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../context/Context';
-import { requestLogin } from '../services/requests';
+import { requestRegister } from '../services/requests';
 import handleToken from '../utils/localStorage';
+import logo from '../images/ze-logo.png';
+import '../styles/register.css';
 
 export default function RegisterForms() {
   const [isDisabled, setIsDisabled] = useState(true);
-  const [failedTryLogin, setFailedTryLogin] = useState(false);
+  const [failedTryRegister, setFailedTryRegister] = useState(false);
   const { name, setName, email,
     setEmail, password, setPassword } = useContext(AppContext);
 
@@ -29,15 +31,16 @@ export default function RegisterForms() {
 
   const handleSubmit = async () => {
     try {
-      const data = await requestLogin('/register', {
+      const data = await requestRegister('/register', {
         name,
         email,
         password,
+        role: 'customer',
       });
       handleToken(data);
       history.push(`/${data.role}/products`);
     } catch (error) {
-      setFailedTryLogin(true);
+      setFailedTryRegister(true);
     }
   };
 
@@ -47,60 +50,61 @@ export default function RegisterForms() {
     if (check) {
       setIsDisabled(false);
     }
-    setFailedTryLogin(false);
+    setFailedTryRegister(false);
   }, [name, email, password]);
 
   return (
-    <div>
-      <form>
-        <label htmlFor="name">
-          Nome
-          <input
-            type="text"
-            data-testid="common_register__input-name"
-            id="name"
-            placeholder="Seu nome"
-            name="name"
-            value={ name }
-            onChange={ ({ target: { value } }) => setName(value) }
-          />
-        </label>
-        <label htmlFor="email">
-          Email
-          <input
-            type="email"
-            data-testid="common_register__input-email"
-            id="email"
-            placeholder="seu-email@site.com.br"
-            name="email"
-            value={ email }
-            onChange={ ({ target: { value } }) => setEmail(value) }
-          />
-        </label>
-        <label htmlFor="password">
-          Senha
-          <input
-            type="password"
-            name="password"
-            data-testid="common_register__input-password"
-            id="password"
-            value={ password }
-            placeholder="Password"
-            onChange={ ({ target: { value } }) => setPassword(value) }
-          />
-        </label>
-        <button
-          type="button"
-          data-testid="common_register__button-register"
-          disabled={ isDisabled }
-          onClick={ handleSubmit }
-        >
-          Cadastrar
-        </button>
-      </form>
-      {failedTryLogin && (
-        <p data-testid="common_register__element-invalid_register">Usuário já existe</p>
-      )}
+    <div className="main__register">
+      <div className="form__register">
+        <img src={ logo } alt="logo do birita" />
+        <h5>Delivery</h5>
+        <form>
+          <label htmlFor="name">
+            <input
+              type="text"
+              data-testid="common_register__input-name"
+              id="name"
+              placeholder="Nome"
+              name="name"
+              value={ name }
+              onChange={ ({ target: { value } }) => setName(value) }
+            />
+          </label>
+          <label htmlFor="email">
+            <input
+              type="email"
+              data-testid="common_register__input-email"
+              id="email"
+              placeholder="Email"
+              name="email"
+              value={ email }
+              onChange={ ({ target: { value } }) => setEmail(value) }
+            />
+          </label>
+          <label htmlFor="password">
+            <input
+              type="password"
+              name="password"
+              data-testid="common_register__input-password"
+              id="password"
+              value={ password }
+              placeholder="Password"
+              onChange={ ({ target: { value } }) => setPassword(value) }
+            />
+          </label>
+          <button
+            type="button"
+            data-testid="common_register__button-register"
+            disabled={ isDisabled }
+            onClick={ handleSubmit }
+          >
+            Cadastrar
+          </button>
+        </form>
+        {failedTryRegister && (
+          <p data-testid="common_register__element-invalid_register">Usuário já existe</p>
+        )}
+      </div>
     </div>
   );
 }

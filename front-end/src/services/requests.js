@@ -13,7 +13,27 @@ export const requestData = async (endpoint) => {
   return data;
 };
 
+export const requestOrders = async (endpoint, body) => {
+  const { data } = await api.post(endpoint, body);
+  return data;
+};
+
 export const requestLogin = async (endpoint, body) => {
+  const { data } = await api.post(endpoint, body);
+  return data;
+};
+
+export const requestRegister = async (endpoint, body) => {
+  const { data } = await api.post(endpoint, body);
+  return data;
+};
+
+export const updateSale = async (endpoint, body) => {
+  const { data } = await api.put(endpoint, body);
+  return data;
+};
+
+export const requestSale = async (endpoint, body) => {
   const { data } = await api.post(endpoint, body);
   return data;
 };

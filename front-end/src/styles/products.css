@@ -1,8 +1,45 @@
+.main__div__products {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
 .div__products {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  height: 90vh;
   justify-content: center;
+  padding: 100px;
   width: 80vw;
+}
+
+.btn__products {
+  background-color: rgb(3, 107, 82);
+  border: 0;
+  border-radius: 5px;
+  color: aliceblue;
+  font-size: 20px;
+  font-weight: 900;
+
+  /* height: 50px; */
+  margin: 20px;
+  padding: 10px;
+  transition: background 0.25s ease-in-out;
+
+  /* width: 15%; */
+}
+
+.btn__products:hover {
+  background-color: rgb(7, 48, 38);
+}
+
+.btn__products:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn__products:disabled:hover {
+  background-color: rgb(3, 107, 82);
 }

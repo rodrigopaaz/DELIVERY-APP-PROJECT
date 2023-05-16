@@ -1,26 +1,32 @@
 import { expect, test } from '@jest/globals';
-import { cleanup, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
-import RegisterForms from '../components/registerForms';
+import RegisterUser from '../components/registerUser';
 import AppProvider from '../context/Provider';
 import renderWithRouter from '../renderWithRouter';
 
-describe('Testes da tela de Register', () => {
-  beforeEach(() => {
-    renderWithRouter(<AppProvider><RegisterForms /></AppProvider>);
+describe('Testes dos inputs da página de Admin', () => {
+  beforeEach(() => renderWithRouter(<AppProvider><RegisterUser /></AppProvider>));
+  afterEach(() => {
+    localStorage.clear();
   });
 
-  afterEach(cleanup);
-
-  test('Testa se há três inputs', () => {
+  test('Testa se há três inputs e um select', () => {
+    localStorage.setItem('user', JSON.stringify({
+      email: 'adm@deliveryapp.com',
+      name: 'Delivery App Admin',
+      role: 'administrator',
+      token: 'fakeToken',
+    }));
     const inputName = screen.getByPlaceholderText('Nome');
     const inputEmail = screen.getByPlaceholderText('Email');
     const inputPassword = screen.getByPlaceholderText('Password');
+    const select = screen.getByRole('option', { name: 'Vendedor' });
 
     expect(inputName).toBeInTheDocument();
     expect(inputEmail).toBeInTheDocument();
     expect(inputPassword).toBeInTheDocument();
+    expect(select).toBeInTheDocument();
   });
 
   test('Testa se há um botão de cadastrar na tela', () => {
@@ -29,7 +35,13 @@ describe('Testes da tela de Register', () => {
     expect(button1).toBeDisabled();
     expect(button1).toBeInTheDocument();
   });
+});
 
+describe('Testes inputs inválidos da página de Admin', () => {
+  beforeEach(() => renderWithRouter(<AppProvider><RegisterUser /></AppProvider>));
+  afterEach(() => {
+    localStorage.clear();
+  });
   test('Testa se ao digitar um nome inválido, aparece uma mensagem de erro', () => {
     const button = screen.getByRole('button', { name: 'Cadastrar' });
     const inputName = screen.getByPlaceholderText('Nome');
@@ -68,24 +80,4 @@ describe('Testes da tela de Register', () => {
 
     expect(button).toBeDisabled();
   });
-});
-
-describe('Testes do cadastro', () => {
-  test(
-    'Testa se clicar no botão de cadastro redireciona a pessoa',
-    () => {
-      const { history } = renderWithRouter(<AppProvider><RegisterForms /></AppProvider>);
-      const buttonCa = screen.getByRole('button', { name: 'Cadastrar' });
-      const inputName = screen.getByPlaceholderText('Nome');
-      const inputEmail = screen.getByPlaceholderText('Email');
-      const inputPassword = screen.getByPlaceholderText('Password');
-
-      userEvent.type(inputName, 'Nathália Andrade');
-      userEvent.type(inputEmail, 'teste@teste.com');
-      userEvent.type(inputPassword, 'testeteste');
-      userEvent.click(buttonCa);
-
-      expect(history.location.pathname).toBe('/');
-    },
-  );
 });

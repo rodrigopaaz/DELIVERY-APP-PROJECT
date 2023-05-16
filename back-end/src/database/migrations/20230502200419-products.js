@@ -1,31 +1,30 @@
-'use strict';
-
+/* eslint-disable camelcase */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  // eslint-disable-next-line max-lines-per-function
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('products', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
       price: {
-        type: Sequelize.DECIMAL(4,2),
+        type: Sequelize.DECIMAL(4, 2),
         allowNull: false,
       },
       url_image: {
         allowNull: false,
-        type: Sequelize.STRING
-      }
+        type: Sequelize.STRING,
+      },
     });
   },
 
-  async down (queryInterface, _Sequelize) {
+  async down(queryInterface, _Sequelize) {
     await queryInterface.dropTable('products');
-
-  }
+  },
 };

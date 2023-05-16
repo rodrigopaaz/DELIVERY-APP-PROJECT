@@ -10,12 +10,12 @@ const serviceUser = require('../services/user.service');
 
 const createUserController = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
     const result = await serviceUser.createUserService({
       name,
       email,
       password,
-      role: 'customer',
+      role,
     });
     return res.status(201).json(result);
   } catch (error) {

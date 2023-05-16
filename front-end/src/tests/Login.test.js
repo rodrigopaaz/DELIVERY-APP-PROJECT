@@ -2,15 +2,50 @@ import { expect, test } from '@jest/globals';
 import { cleanup, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+import AppProvider from '../context/Provider';
 import Login from '../pages/Login';
 import renderWithRouter from '../renderWithRouter';
 
 describe('Testes da tela de login', () => {
-  beforeEach(() => renderWithRouter(<Login />));
+  beforeEach(() => renderWithRouter(<AppProvider><Login /></AppProvider>));
 
   afterEach(cleanup);
 
-  test('Testa se há dois inputs', () => {
+  test('Testa se há dois inputs para o cliente', () => {
+    localStorage.setItem('user', JSON.stringify({
+      name: 'Cliente Zé Birita',
+      email: 'zebirita@email.com',
+      role: 'customer',
+      token: 'fakeToken',
+    }));
+    const inputEmail = screen.getAllByPlaceholderText('Email');
+    const inputPassword = screen.getAllByPlaceholderText('Password');
+
+    expect(inputEmail[0]).toBeInTheDocument();
+    expect(inputPassword[0]).toBeInTheDocument();
+  });
+
+  test('Testa se há dois inputs para o vendedor', () => {
+    localStorage.setItem('user', JSON.stringify({
+      email: 'fulana@deliveryapp.com',
+      name: 'Fulana Pereira',
+      role: 'seller',
+      token: 'fakeToken',
+    }));
+    const inputEmail = screen.getAllByPlaceholderText('Email');
+    const inputPassword = screen.getAllByPlaceholderText('Password');
+
+    expect(inputEmail[0]).toBeInTheDocument();
+    expect(inputPassword[0]).toBeInTheDocument();
+  });
+
+  test('Testa se há dois inputs para o admin', () => {
+    localStorage.setItem('user', JSON.stringify({
+      email: 'adm@deliveryapp.com',
+      name: 'Delivery App Admin',
+      role: 'administrator',
+      token: 'fakeToken',
+    }));
     const inputEmail = screen.getAllByPlaceholderText('Email');
     const inputPassword = screen.getAllByPlaceholderText('Password');
 
@@ -56,7 +91,7 @@ describe('Testes da tela de login', () => {
 
 describe('Testes da tela de login', () => {
   test('Testa se clicar no botão de registro é redirecionado', () => {
-    const { history } = renderWithRouter(<Login />);
+    const { history } = renderWithRouter(<AppProvider><Login /></AppProvider>);
     const button = screen.getByRole('button', { name: 'Register' });
 
     userEvent.click(button);

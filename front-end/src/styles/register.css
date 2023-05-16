@@ -1,6 +1,6 @@
 @media only screen and ( max-width : 382px ) and ( min-width : 100px ) {
 
-  .main__login {
+  .main__register {
     align-items: center;
     background-image: url('../images/background.jpg');
     background-size: cover;
@@ -11,7 +11,7 @@
     width: 100vw;
   }
 
-  .form__login {
+  .form__register {
     align-items: center;
     background-color: rgba(255, 255, 255, 0.8);
     display: flex;
@@ -22,14 +22,14 @@
     width: 100%;
   }
 
-  .form__login form {
+  .form__register form {
     align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
 
-  .form__login form input {
+  .form__register form input {
     border: 0.5px solid#41197F;
     border-radius: 5px;
     height: 35px;
@@ -38,11 +38,11 @@
     width: 226px;
   }
 
-  .form__login form input::placeholder {
+  .form__register form input::placeholder {
     font-size: 10px;
   }
 
-  .form__login form button {
+  .form__register form button {
     background: #ffc436;
     border-radius: 5px;
     color: black;
@@ -51,12 +51,12 @@
     width: 100%;
   }
 
-  .form__login form button:disabled {
+  .form__register form button:disabled {
     cursor: not-allowed;
     opacity: 0.4;
   }
 
-  .form__login img {
+  .form__register img {
     height: 150px;
     width: 150px;
   }
@@ -65,7 +65,7 @@
 
 @media only screen and ( min-width : 383px ) {
 
-  .main__login {
+  .main__register {
     align-items: center;
     background-image: url('../images/background.jpg');
     background-size: cover;
@@ -76,7 +76,7 @@
     width: 100vw;
   }
 
-  .form__login {
+  .form__register {
     align-items: center;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
@@ -88,12 +88,12 @@
     width: 450px;
   }
 
-  .form__login form {
+  .form__register form {
     display: flex;
     flex-direction: column;
   }
 
-  .form__login form input {
+  .form__register form input {
     border: 0.5px solid black;
     border-radius: 5px;
     height: 25px;
@@ -102,7 +102,7 @@
     width: 276px;
   }
 
-  .form__login form button {
+  .form__register form button {
     background: #fcc436;
     border-radius: 5px;
     color: black;
@@ -111,7 +111,7 @@
     width: 100%;
   }
 
-  .form__login form button:hover {
+  .form__register form button:hover {
     background: #fc6436;
     border-radius: 5px;
     color: black;
@@ -119,17 +119,17 @@
     width: 100%;
   }
 
-  .form__login form button:disabled {
+  .form__register form button:disabled {
     cursor: not-allowed;
     opacity: 0.4;
   }
 
-  .form__login img {
+  .form__register img {
     height: 250px;
     width: 250px;
   }
 
-  .form__login h5 {
+  .form__register h5 {
     color: #fcc436;
     font-size: 20px;
     font-weight: 900;

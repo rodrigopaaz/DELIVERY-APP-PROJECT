@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-// import Axios from 'axios';
-import { requestLogin /* requestData */ } from '../services/requests';
+import { requestLogin } from '../services/requests';
 import '../styles/login.css';
 import handleToken from '../utils/localStorage';
+import AppContext from '../context/Context';
+import logo from '../images/ze-logo.png';
 
 export default function Login() {
   const history = useHistory();
   const [login, setLogin] = useState({ email: '', password: '' });
   const [invalidUser, setInvalidUser] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
+  const { setEmail } = useContext(AppContext);
 
   const validateInputs = () => {
     const NUMBERSIX = 6;
@@ -30,20 +32,38 @@ export default function Login() {
         password: login.password,
       });
       handleToken(data);
-      history.push(`/${data.role}/products`);
+      if (data.role === 'administrator') {
+        history.push('/admin/manage');
+      } else if (data.role === 'customer') {
+        history.push('/customer/products');
+      } else if (data.role === 'seller') {
+        history.push('/seller/orders');
+      }
     } catch (error) {
       setInvalidUser(true);
     }
   };
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      if (user.role === 'administrator') {
+        history.push('/admin/manage');
+      } else if (user.role === 'customer') {
+        history.push('/customer/products');
+      } else if (user.role === 'seller') {
+        history.push('/seller/orders');
+      }
+    }
     validateInputs();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [login]);
+  }, [login, history]);
 
   return (
     <div className="main__login">
       <div className="form__login">
+        <img src={ logo } alt="logo do birita" />
+        <h5>Delivery</h5>
         <form>
           <label htmlFor="email">
             <input
@@ -55,6 +75,7 @@ export default function Login() {
               value={ login.email }
               onChange={ ({ target: { name, value } }) => {
                 setLogin({ ...login, [name]: value });
+                setEmail(value);
                 validateInputs();
               } }
             />
