@@ -8,12 +8,12 @@ const {
 
 const createUserController = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
     const result = await createUserService({
       name,
       email,
       password,
-      role: 'customer',
+      role,
     });
     res.status(201).json(result);
   } catch (error) {

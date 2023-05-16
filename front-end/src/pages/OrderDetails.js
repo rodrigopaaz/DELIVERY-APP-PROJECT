@@ -66,7 +66,7 @@ export default function OrderDetails() {
               }
             >
               { `PEDIDO
-            ${idParams.toString().padStart(NUMBER_FOUR, '0')}` }
+            ${sale.id.toString().padStart(NUMBER_FOUR, '0')}` }
             </td>
             <td
               data-testid={ `${testId}-order-details-label-seller-name` }
@@ -84,9 +84,6 @@ export default function OrderDetails() {
             <td
               data-testid={
                 `${testId}-order-details-label-delivery-status`
-                // role === 'customer'
-                //   ? 'customer_order_details__element-order-details-label-delivery-status'
-                //   : 'seller_order_details__element-order-details-label-delivery-status'
               }
             >
               {sale.status}

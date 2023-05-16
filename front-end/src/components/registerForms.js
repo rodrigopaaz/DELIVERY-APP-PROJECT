@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../context/Context';
-import { requestLogin } from '../services/requests';
+import { requestRegister } from '../services/requests';
 import handleToken from '../utils/localStorage';
 import logo from '../images/ze-logo.png';
 import '../styles/register.css';
 
 export default function RegisterForms() {
   const [isDisabled, setIsDisabled] = useState(true);
-  const [failedTryLogin, setFailedTryLogin] = useState(false);
+  const [failedTryRegister, setFailedTryRegister] = useState(false);
   const { name, setName, email,
     setEmail, password, setPassword } = useContext(AppContext);
 
@@ -31,15 +31,16 @@ export default function RegisterForms() {
 
   const handleSubmit = async () => {
     try {
-      const data = await requestLogin('/register', {
+      const data = await requestRegister('/register', {
         name,
         email,
         password,
+        role: 'customer',
       });
       handleToken(data);
       history.push(`/${data.role}/products`);
     } catch (error) {
-      setFailedTryLogin(true);
+      setFailedTryRegister(true);
     }
   };
 
@@ -49,7 +50,7 @@ export default function RegisterForms() {
     if (check) {
       setIsDisabled(false);
     }
-    setFailedTryLogin(false);
+    setFailedTryRegister(false);
   }, [name, email, password]);
 
   return (
@@ -100,7 +101,7 @@ export default function RegisterForms() {
             Cadastrar
           </button>
         </form>
-        {failedTryLogin && (
+        {failedTryRegister && (
           <p data-testid="common_register__element-invalid_register">Usuário já existe</p>
         )}
       </div>

@@ -33,7 +33,7 @@ export default function Orders() {
   return (
     <div className="div__orders">
       <Header />
-      { orders.length && orders.map((item) => (
+      { orders.length > 0 && orders.map((item) => (
         <CardOrders
           key={ item.id }
           id={ item.id }

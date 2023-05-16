@@ -45,7 +45,7 @@ export default function Header() {
       to={ `/${role}/manage` }
       data-testid="customer_products__element-navbar-link-orders"
     >
-      GERENCIAR USUÁRIO
+      GERENCIAR USUÁRIOS
     </Link>
   );
 
@@ -55,8 +55,9 @@ export default function Header() {
       return handleSeller();
     case 'customer':
       return handleCustomer();
-    default:
+    case 'administrator':
       return handleAdmin();
+    default:
     }
   };
 
