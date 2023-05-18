@@ -2,33 +2,41 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const { Model } = require('sequelize');
 
+const jwt = require('jsonwebtoken');
 const usersService = require('../../services/user.service');
-const { allUsers,
+const {
 createUser,
 idUserUp,
 idRemove,
-users } = require('../mocks/Users.mock');
+createdUser, 
+idUserUpdated,
+userToUpdate, 
+allUsersWithoutPassword } = require('../mocks/Users.mock');
 
 describe('Verificando a rota de usuários', function () {
+  afterEach(function () {
+    sinon.restore();
+    });
 describe('listando todos os usuários', function () {
 it('retorna a lista completa de usuários', async function () {
 // arrange
-sinon.stub(Model, 'findAll').resolves(allUsers); 
+sinon.stub(Model, 'findAll').resolves(allUsersWithoutPassword);
 // act
 const result = await usersService.findAllUserService();
 // assert
-expect(result).to.deep.equal(allUsers);
+expect(result).to.deep.equal(allUsersWithoutPassword);
 });
 });
 
 describe('busca de um usuário', function () {
-// it('retorna um erro caso receba um ID inválido', async function () {
-// // act
-// const result = await usersService.findByIdUserService('a'); 
-// // assert
-
-// expect(result).to.equal('Not Found');
-// });
+it('retorna um erro caso receba um ID inválido', async function () {
+  // arrange
+sinon.stub(Model, 'findByPk').resolves(null);
+// act
+const result = await usersService.findByIdUserService('a'); 
+// assert
+expect(result).to.equal(null);
+});
 
 // it('retorna um erro caso não exista o usuário', async function () {
 // // arrange
@@ -65,33 +73,24 @@ expect(result).to.deep.equal({
 describe('cadastro de um usuário com valores válidos', function () {
 it('retorna o ID do usuário cadastrado', async function () {
 // arrange
-sinon.stub(Model, 'create').resolves(1);
-sinon.stub(Model, 'findByPk').resolves(users); 
+sinon.stub(Model, 'create').resolves(createdUser);
+sinon.stub(Model, 'findOne').resolves(null);
+sinon.stub(jwt, 'sign').returns('fakeToken');
 // act
 const result = await usersService.createUserService(createUser);
 // assert
-expect(result).to.deep.equal(createUser);
+expect(result).to.deep.equal(createdUser);
 });
 });
 
 describe('Testa a função atualização do usuário', function () {
 it('Faz a atualização de um usuário pelo id', async function () {
 sinon.stub(Model, 'findByPk').resolves(idUserUp);
-sinon.stub(Model, 'update').resolves({ id: 2,
-  name: 'Fulana Pereira',
-  email: 'fulana@deliveryapp.com',
-  password: 'fulana@123',
-  role: 'seller',
-});
+sinon.stub(Model, 'update').resolves(idUserUpdated);
 
-const responde = await usersService.updateUserService(idUserUp);
+const responde = await usersService.updateUserService(2, userToUpdate);
 
-expect(responde.message).to.be.deep.equal({ id: 2,
-  name: 'Fulana Pereira',
-  email: 'fulana@deliveryapp.com',
-  password: 'fulana@123',
-  role: 'seller',
-});
+expect(responde).to.be.deep.equal(idUserUpdated);
 });
 });
 
@@ -106,9 +105,5 @@ const response = await usersService.deleteUserService(2);
 
 expect(response).to.be.deep.equal(result);
 });
-});
-
-afterEach(function () {
-sinon.restore();
 });
 });

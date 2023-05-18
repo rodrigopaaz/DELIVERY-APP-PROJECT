@@ -1,4 +1,5 @@
 const url = 'http://localhost:3001/images/skol_lata_350ml.jpg';
+const skolProduct = 'Skol Lata 1l';
 
 const allProducts = [
   {
@@ -16,22 +17,29 @@ const allProducts = [
   ];
   
   const product = {
-    name: 'Skol Lata 1l',
-    price: '4.30',
+    name: skolProduct,
+    price: 4.30,
     urlImage: url,
   };
   
   const createProduct = {
     id: 12,
-    name: 'Skol Lata 1l',
-    price: '4.30',
+    name: skolProduct,
+    price: 4.30,
     urlImage: url,
   };
   
   const idProductUp = {
     id: 1,
+    name: skolProduct,
+    price: 4.30,
+    urlImage: url,
+  };
+
+  const idProductUpdated = {
+    id: 1,
     name: 'Skol 1l',
-    price: '4.30',
+    price: 4.30,
     urlImage: url,
   };
 
@@ -70,4 +78,5 @@ const allProducts = [
   idProduct,
   mockUpdate,
   errorId,
+  idProductUpdated,
   };

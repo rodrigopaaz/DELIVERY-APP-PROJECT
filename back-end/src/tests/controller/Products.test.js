@@ -13,6 +13,9 @@ const skol = 'Skol Lata 250ml';
 const url = 'http://localhost:3001/images/skol_lata_350ml.jpg';
 
 describe('Teste de unidade do Controller', function () {
+  afterEach(function () {
+    (sinon.restore());
+  });
  describe('Listando os produtos', function () {
   it('Deve retornar o status 200 e a lista', async function () {
 // arrange
@@ -188,9 +191,5 @@ expect(res.status).to.have.been.calledWith(204);
 // expect(res.status).to.have.been.calledWith(404);
 // expect(res.json).to.have.been.calledWith({ });
 // });
-});
-
-afterEach(function () {
-sinon.restore();
 });
 });

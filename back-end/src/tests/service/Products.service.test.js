@@ -4,13 +4,15 @@ const { Model } = require('sequelize');
 
 const productsService = require('../../services/product.service');
 const { allProducts, idProduct, product, idRemove,
-idProductUp, 
-createProduct } = require('../mocks/Products.mock');
+idProductUp, createProduct, idProductUpdated } = require('../mocks/Products.mock');
 
 const url = 'http://localhost:3001/images/skol_lata_350ml.jpg';
 const skol = 'Skol Lata 250ml';
 
 describe('Verificando a rota de produtos', function () {
+  afterEach(function () {
+    sinon.restore();
+    });
 describe('listando todos os produtos', function () {
 it('retorna a lista completa de produtos', async function () {
 // arrange
@@ -24,12 +26,14 @@ expect(result).to.deep.equal(allProducts);
 });
 
 describe('busca de um produto', function () {
-// it('retorna um erro caso receba um ID inválido', async function () {
-// // act
-// const result = await productsService.findByIdProdService('a'); 
-// // assert
-// expect(result).to.equal(null);
-// });
+it('retorna um erro caso receba um ID inválido', async function () {
+// arrange
+sinon.stub(Model, 'findAll').resolves(null); 
+// act
+const result = await productsService.findByIdProdService('a'); 
+// assert
+expect(result).to.equal(null);
+});
 
 it('retorna um produto caso o ID exista', async function () {
 // arrange
@@ -54,10 +58,10 @@ expect(result).to.deep.equal({
 describe('cadastro de um produto com valores válidos', function () {
 it('retorna o ID do produto cadastrado', async function () {
 // arrange
-sinon.stub(Model, 'create').resolves(12);
-sinon.stub(Model, 'findByPk').resolves(product); 
+sinon.stub(Model, 'create').resolves(createProduct);
+sinon.stub(Model, 'findByPk').resolves(12);
 // act
-const result = await productsService.createProcuctService(createProduct);
+const result = await productsService.createProcuctService(product);
 // assert
 expect(result).to.deep.equal(createProduct);
 });
@@ -65,17 +69,12 @@ expect(result).to.deep.equal(createProduct);
 
 describe('Testa a função atualização do produto', function () {
 it('Faz a atualização de um produto pelo id', async function () {
-sinon.stub(Model, 'findByPk').resolves({
-  id: 1,
-  name: skol,
-  price: 2.20,
-  urlImage: url,
-  });
-sinon.stub(Model, 'update').resolves(idProductUp);
+  sinon.stub(Model, 'findByPk').resolves(idProductUp);
+  sinon.stub(Model, 'update').resolves(idProductUpdated);
 
-const responde = await productsService.updateProductService(1);
+const responde = await productsService.updateProductService(1, product);
 
-expect(responde).to.be.deep.equal(idProductUp);
+expect(responde).to.be.deep.equal(idProductUpdated);
 });
 });
 
@@ -90,9 +89,5 @@ const response = await productsService.deleteProductService(idProduct);
 
 expect(response).to.be.deep.equal(result);
 });
-});
-
-afterEach(function () {
-sinon.restore();
 });
 });

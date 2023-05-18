@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import AppProvider from '../context/Provider';
 import Login from '../pages/Login';
-import renderWithRouter from '../renderWithRouter';
+import renderWithRouter from './helpers/renderWithRouter';
 
 describe('Testes da tela de login', () => {
   beforeEach(() => renderWithRouter(<AppProvider><Login /></AppProvider>));
@@ -95,7 +95,6 @@ describe('Testes da tela de login', () => {
     const button = screen.getByRole('button', { name: 'Register' });
 
     userEvent.click(button);
-    console.log(history);
     expect(history.location.pathname).toBe('/register');
   });
 });

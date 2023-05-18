@@ -72,6 +72,7 @@ const updateSaleService = async (id, info) => {
 };
 
 module.exports = {
+  findUserByEmail,
   createSaleService,
   findSaleService,
   updateSaleService,

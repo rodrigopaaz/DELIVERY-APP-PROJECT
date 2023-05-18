@@ -7,11 +7,12 @@ chai.use(sinonChai);
 
 const usersService = require('../../services/user.service');
 const usersController = require('../../controllers/user.controller');
-const { allUsers,
-createUser,
-idUserUp, users } = require('../mocks/Users.mock');
+const { allUsers, createUser, idUserUp, users } = require('../mocks/Users.mock');
 
 describe('Teste de unidade do Controller', function () {
+  afterEach(function () {
+    sinon.restore();
+    });
 describe('Listando os usuários', function () {
 it('Deve retornar o status 200 e a lista', async function () {
 // arrange
@@ -66,25 +67,25 @@ expect(res.json).to.have.been.calledWith({
 });
 });
 
-// it('ao passar um id inválido deve retornar um erro', async function () {
-// // Arrange
-// const res = {};
-// const req = {
-// params: { id: 'abc' }, 
-// };
+it('ao passar um id inválido deve retornar um erro', async function () {
+// Arrange
+const res = {};
+const req = {
+params: { id: 'abc' }, 
+};
 
-// res.status = sinon.stub().returns(res);
-// res.json = sinon.stub().returns();
+res.status = sinon.stub().returns(res);
+res.json = sinon.stub().returns();
 
-// sinon
-// .stub(usersService, 'findByIdUserService')
-// .resolves('Not Found');
-// // Act
-// await usersController.findByIdUserController(req, res);
-// // Assert
-// expect(res.status).to.have.been.calledWith(404);
-// expect(res.json).to.have.been.calledWith('Not Found');
-// });
+sinon
+.stub(usersService, 'findByIdUserService')
+.resolves(null);
+// Act
+await usersController.findByIdUserController(req, res);
+// Assert
+expect(res.status).to.have.been.calledWith(404);
+expect(res.json).to.have.been.calledWith({ message: 'Not Found' });
+});
 });
 
 describe('Cadastrando um novo usuário', function () {
@@ -144,23 +145,19 @@ await usersController.deleteUserController(req, res);
 expect(res.status).to.have.been.calledWith(204);
 });
 
-// it('Faz a remoção de um usuário através do id que não existe', async function () {
-// const req = { params: { id: 999 } };
-// const res = {};
+it('Faz a remoção de um usuário através do id que não existe', async function () {
+const res = {};
+const req = { params: { id: 999 } };
 
-// res.status = sinon.stub().returns(res);
-// res.json = sinon.stub().returns();
+res.status = sinon.stub().returns(res);
+res.json = sinon.stub().returns();
 
-// sinon.stub(usersService, 'deleteUserService').resolves({ type: 404, message: 'Not Found' });
+sinon.stub(usersService, 'deleteUserService').resolves();
 
-// await usersController.deleteUserController(req, res);
+await usersController.deleteUserController(req, res);
 
-// expect(res.status).to.have.been.calledWith(404);
-// expect(res.json).to.have.been.calledWith({ message: 'Not Found' });
-// });
+expect(res.status).to.have.been.calledWith(404);
+// expect(res.json.message).to.be.equal('Not Found');
 });
-
-afterEach(function () {
-sinon.restore();
 });
 });

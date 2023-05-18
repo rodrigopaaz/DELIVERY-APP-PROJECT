@@ -3,7 +3,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import RegisterUser from '../components/registerUser';
 import AppProvider from '../context/Provider';
-import renderWithRouter from '../renderWithRouter';
+import renderWithRouter from './helpers/renderWithRouter';
 
 describe('Testes dos inputs da página de Admin', () => {
   beforeEach(() => renderWithRouter(<AppProvider><RegisterUser /></AppProvider>));

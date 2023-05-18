@@ -17,7 +17,7 @@ const createUserService = async (info) => {
     const token = createToken({ data });
     return { token, name, email, role };
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error.message);
   }
 };
 
@@ -41,8 +41,8 @@ const findByIdUserService = async (id) => {
 
 const updateUserService = async (id, info) => {
   try {
-    const exist = await findByIdUserService(id);
     const { name, email, password, role } = info;
+    const exist = await users.findByPk(id);
     if (!exist) {
       throw new Error('Not Found');
     }
@@ -59,8 +59,16 @@ const updateUserService = async (id, info) => {
 };
 
 const deleteUserService = async (id) => {
-  await users.destroy({ where: { id } });
-  return { status: 204 };
+  try {
+    const exist = await users.findByPk(id);
+    if (!exist) {
+      throw new Error('Not Found');
+    }
+    await users.destroy({ where: { id } });
+    return { status: 204 };
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 module.exports = {

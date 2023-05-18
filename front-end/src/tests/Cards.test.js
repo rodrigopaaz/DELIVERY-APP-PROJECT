@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import Card from '../components/Cards';
 import AppProvider from '../context/Provider';
-import renderWithRouter from '../renderWithRouter';
+import renderWithRouter from './helpers/renderWithRouter';
 
 describe('Testes da página de cards', () => {
   beforeEach(() => renderWithRouter(

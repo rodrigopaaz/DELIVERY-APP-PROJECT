@@ -102,7 +102,7 @@ export default function OrderDetails() {
           </tr>
         </thead>
         <tbody>
-          {sale.products
+          {sale.products > 0
           && sale.products.map(({ name, sales_products: sales, price }, i) => (
             <tr key={ i + name }>
               <td

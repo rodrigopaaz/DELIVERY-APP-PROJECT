@@ -52,9 +52,13 @@ const updateUserController = async (req, res) => {
 };
 
 const deleteUserController = async (req, res) => {
+  try {
   const { id } = req.params;
   await serviceUser.deleteUserService(id);
   return res.status(204).end();
+  } catch (error) {
+  return res.status(404).json(error.message);
+  }
 };
 
 module.exports = {

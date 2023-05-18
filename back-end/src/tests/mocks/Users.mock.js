@@ -1,3 +1,7 @@
+const fulanaEmail = 'fulana@deliveryapp.com';
+const fulanaPassword = 'fulana@123';
+const fulanaName = 'Fulana Pereira';
+
 const allUsers = [
   {
     id: 1,
@@ -8,32 +12,73 @@ const allUsers = [
   },
   {
     id: 2,
-    name: 'Fulana Pereira',
-    email: 'fulana@deliveryapp.com',
+    name: fulanaName,
+    email: fulanaEmail,
     password: '3c28d2b0881bf46457a853e0b07531c6',
     role: 'seller',
   },
-]; 
-  
+];
+
+const allUsersWithoutPassword = [
+  {
+    id: 1,
+    name: 'Delivery App Admin',
+    email: 'adm@deliveryapp.com',
+    role: 'administrator',
+  },
+  {
+    id: 2,
+    name: fulanaName,
+    email: fulanaEmail,
+    role: 'seller',
+  },
+];
+
   const createUser = {
+    name: 'Fulana Pereira da Silva',
+    email: fulanaEmail,
+    password: '3c28d2b0881bf46457a853e0b07531c6',
+    role: 'seller',
+  };
+  
+  const createdUser = {
     token: 'fakeToken',
+    name: 'Fulana Pereira da Silva',
+    email: fulanaEmail,
+    role: 'seller',
   };
   
   const users = { 
-    name: 'Nathália',
+    name: 'Nathália Andrade',
     email: 'na@deliveryapp.com',
     password: '--na2@21!!--',
+    role: 'seller',
+  };
+
+  const userToUpdate = {
+    name: 'Fulana Fulana Pereira',
+    email: fulanaEmail,
+    password: fulanaPassword,
     role: 'seller',
   };
 
   const idUserUp = {
   id: 2,
   name: 'Fulana Fulana Pereira',
-  email: 'fulana@deliveryapp.com',
-  password: 'fulana@123',
+  email: fulanaEmail,
+  password: fulanaPassword,
   role: 'seller',
-  // -- senha: md5('fulana@123')
+  // -- senha: md5(fulanaPassword)
   };
+
+  const idUserUpdated = {
+    id: 2,
+    name: fulanaName,
+    email: fulanaEmail,
+    password: fulanaPassword,
+    role: 'seller',
+  };
+  
   const idRemove = [
   {
   fieldCount: 0,
@@ -45,6 +90,7 @@ const allUsers = [
   },
   undefined,
   ];
+
   const mockUpdate = {
   fieldCount: 0,
   affectedRows: 1,
@@ -54,6 +100,7 @@ const allUsers = [
   warningStatus: 0,
   changedRows: 1,
   };
+
   module.exports = {
   allUsers,
   users,
@@ -61,4 +108,8 @@ const allUsers = [
   idUserUp,
   idRemove,
   mockUpdate,
+  createdUser,
+  idUserUpdated,
+  userToUpdate,
+  allUsersWithoutPassword,
   };

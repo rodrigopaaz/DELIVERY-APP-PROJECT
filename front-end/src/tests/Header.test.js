@@ -4,7 +4,7 @@ import React from 'react';
 import { act } from 'react-dom/test-utils';
 import Header from '../components/Header';
 import AppProvider from '../context/Provider';
-import renderWithRouter from '../renderWithRouter';
+import renderWithRouter from './helpers/renderWithRouter';
 
 const dataTest = 'customer_products__element-navbar-link-orders';
 
