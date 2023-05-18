@@ -1,14 +1,13 @@
 import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
-
-import { Route, Switch, Redirect } from 'react-router-dom';
-import Login from './pages/Login';
-import register from './pages/register';
-import Products from './pages/products';
+import AdminPage from './pages/admin';
 import Checkout from './pages/Checkout';
+import Login from './pages/Login';
 import OrderDetails from './pages/OrderDetails';
 import Orders from './pages/Orders';
-import AdminPage from './pages/admin';
+import Products from './pages/products';
+import register from './pages/register';
 
 function App() {
   return (

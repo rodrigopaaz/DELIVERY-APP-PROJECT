@@ -42,7 +42,7 @@ export default function Header() {
 
   const handleAdmin = () => (
     <Link
-      to={ `/${role}/manage` }
+      to="/admin/manage"
       data-testid="customer_products__element-navbar-link-orders"
     >
       GERENCIAR USUÁRIOS

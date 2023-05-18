@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { updateSale, requestData } from '../services/requests';
 import Header from '../components/Header';
 import AppContext from '../context/Context';
+import { requestData, updateSale } from '../services/requests';
 import '../styles/orderDetails.css';
 
 export default function OrderDetails() {
@@ -33,9 +33,9 @@ export default function OrderDetails() {
         status: statusToSet,
       });
       requestSale();
-      if (role === 'seller') {
-        history.push(`/${role}/orders/`);
-      }
+      // if (role === 'seller') {
+      //   history.push(`/${role}/orders/`);
+      // }
     } catch (error) {
       console.error(error.message);
     }
@@ -102,7 +102,7 @@ export default function OrderDetails() {
           </tr>
         </thead>
         <tbody>
-          {sale.products
+          {sale.products > 0
           && sale.products.map(({ name, sales_products: sales, price }, i) => (
             <tr key={ i + name }>
               <td
